@@ -1,0 +1,47 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MovieApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/violet_200</item>
+        <item name="colorPrimaryVariant">@color/violet_300</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/magenta_200</item>
+        <item name="colorSecondaryVariant">@color/magenta_300</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Surface -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <!-- Error -->
+        <item name="colorError">@color/red_400</item>
+        <item name="colorOnError">@color/black</item>
+        <!-- Font family -->
+        <item name="android:fontFamily">@font/fira</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+    <!-- Base application theme without the action bar and title bar -->
+    <style name="Theme.MovieApp.NoActionBar" parent="Theme.MovieApp">
+        <!-- Hide title bar and action bar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <!-- Splash screen style -->
+    <style name="Theme.MovieApp.SplashScreen">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/magenta_300</item>
+        <item name="colorPrimaryVariant">@color/magenta_500</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Hide title bar and action bar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Background, status and navigation color -->
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+</resources>

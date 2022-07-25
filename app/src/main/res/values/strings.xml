@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="tv_splash_text_placeholder">tvSplashTextPlaceholder</string>
+    <string name="iv_splash_logo_desc">Logo for splash screen</string>
+    <string name="tv_splash_text_rand_1">the best movie app ever</string>
+    <string name="tv_splash_text_rand_2">you\'ll enjoy using this app</string>
+    <string name="tv_splash_text_rand_3">i hope you have a wonderful day</string>
+    <string name="tv_splash_text_rand_4">ur cute :3</string>
+    <string name="tv_splash_text_rand_5">gee that\'s swell</string>
+    <string name="tv_splash_text_rand_6">woo that\'s shiny</string>
+    <string name="tv_splash_text_rand_7">it\'s not a bug, it\'s a feature</string>
+    <string name="tv_splash_text_rand_8">capybara</string>
+    <string name="tv_splash_text_rand_9">coconut doggo</string>
+    <string name="btn_actors">Actors</string>
+    <string name="btn_genres">Genres</string>
+    <string name="genres_title">Genres</string>
+    <string name="actors_title">Actors</string>
+    <string name="genres_desc">Select your preferences in the list below ...</string>
+    <string name="actors_desc">Select your preferences in the list below ...</string>
+</resources>

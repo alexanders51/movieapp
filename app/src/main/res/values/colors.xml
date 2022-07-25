@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="violet_200">#ffd393f8</color>
+    <color name="violet_300">#ffc066f5</color>
+    <color name="violet_500">#ffa202ee</color>
+    <color name="violet_600">#ff8f0ae8</color>
+    <color name="magenta_200">#fff98bce</color>
+    <color name="magenta_300">#fffc53b8</color>
+    <color name="magenta_400">#ffff00a4</color>
+    <color name="magenta_500">#ffff008d</color>
+    <color name="magenta_500_30a">#30ff008d</color>
+    <color name="red_400">#ffff5436</color>
+    <color name="red_700">#ffff0000</color>
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="grey">#ff777777</color>
+    <color name="white_10a">#10ffffff</color>
+</resources>

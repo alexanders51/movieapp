@@ -12,13 +12,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @GlideModule
-class ActorsImageRetriever() : AppGlideModule() {
+object ActorsImageRetriever : AppGlideModule() {
     private var configurationRetriever: ConfigurationRetriever = ConfigurationRetriever(ApiClient.instance.retrofit!!)
     private lateinit var configurationImagesResponse: ConfigurationImagesResponse
     lateinit var imageBaseUrl: String
     lateinit var imageProfileSizes: List<String>
 
-    init {
+    fun initialize() {
         GlobalScope.launch {
             configurationImagesResponse = configurationRetriever.getConfig().images
             imageBaseUrl = configurationImagesResponse.secureBaseUrl

@@ -15,7 +15,6 @@ import com.practica.movieapp.R
 import com.practica.movieapp.data.actors.Actor
 
 class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<ActorsAdapter.ViewHolder>() {
-    var actorsImageRetriever: ActorsImageRetriever = ActorsImageRetriever()
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemParent: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.itemParent)
         val itemName: TextView = view.findViewById<TextView>(R.id.tvName)
@@ -35,31 +34,32 @@ class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<
         val actor = actorsList[position]
         holder.itemName.text = actor.name
 
-        actorsImageRetriever.downloadImageWithPath(holder.itemImage.context, actor.profilePath!!, holder.itemImage)
+        ActorsImageRetriever.downloadImageWithPath(holder.itemImage.context, actor.profilePath!!, holder.itemImage)
 
-        if (position % 2 != 0) {
-            holder.itemParent.setBackgroundColor(ContextCompat.getColor(holder.itemParent.context, R.color.white_10a))
-        }
+        setItemSelection(holder, actor, position)
 
         holder.itemParent.setOnClickListener {
             actor.isSelected = !actor.isSelected
-
-            val bgColor = when (actor.isSelected) {
-                true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_500_30a)
-                else -> when (position % 2 != 0) {
-                    true -> ContextCompat.getColor(holder.itemParent.context, R.color.white_10a)
-                    else -> ContextCompat.getColor(holder.itemParent.context, R.color.black)
-                }
-            }
-
-            val fgColor = when (actor.isSelected) {
-                true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_300)
-                else -> ContextCompat.getColor(holder.itemParent.context, R.color.white)
-            }
-
-            holder.itemParent.setBackgroundColor(bgColor)
-            holder.itemName.setTextColor(fgColor)
+            setItemSelection(holder, actor, position)
         }
+    }
+
+    private fun setItemSelection(holder: ViewHolder, actor: Actor, position: Int) {
+        val bgColor = when (actor.isSelected) {
+            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_500_30a)
+            else -> when (position % 2 != 0) {
+                true -> ContextCompat.getColor(holder.itemParent.context, R.color.white_10a)
+                else -> ContextCompat.getColor(holder.itemParent.context, R.color.black)
+            }
+        }
+
+        val fgColor = when (actor.isSelected) {
+            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_300)
+            else -> ContextCompat.getColor(holder.itemParent.context, R.color.white)
+        }
+
+        holder.itemParent.setBackgroundColor(bgColor)
+        holder.itemName.setTextColor(fgColor)
     }
 
     override fun getItemCount(): Int = actorsList.size

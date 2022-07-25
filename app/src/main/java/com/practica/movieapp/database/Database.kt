@@ -13,7 +13,7 @@ class Database private constructor() {
         val instance = Database()
     }
 
-    @androidx.room.Database(entities = [Actor::class, Genre::class], version = 0)
+    @androidx.room.Database(entities = [Actor::class, Genre::class], version = 1)
     abstract class MovieAppDatabase : RoomDatabase() {
         abstract fun actorDao(): ActorDao
         abstract fun genreDao(): GenreDao

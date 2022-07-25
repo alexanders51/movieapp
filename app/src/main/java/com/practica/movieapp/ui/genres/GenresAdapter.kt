@@ -26,31 +26,32 @@ class GenresAdapter(private val genresList: List<Genre>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val genre = genresList[position]
         holder.genreCheck.text = genre.name
-        genre.isSelected = holder.genreCheck.isChecked
+        holder.genreCheck.isChecked = genre.isSelected
 
-        if (position % 2 != 0) {
-            holder.itemParent.setBackgroundColor(ContextCompat.getColor(holder.itemParent.context, R.color.white_10a))
-        }
+        setItemSelection(holder, genre, position)
 
         holder.genreCheck.setOnClickListener {
             genre.isSelected = !genre.isSelected
-
-            val bgColor = when (genre.isSelected) {
-                true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_500_30a)
-                else -> when (position % 2 != 0) {
-                    true -> ContextCompat.getColor(holder.itemParent.context, R.color.white_10a)
-                    else -> ContextCompat.getColor(holder.itemParent.context, R.color.black)
-                }
-            }
-
-            val fgColor = when (genre.isSelected) {
-                true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_300)
-                else -> ContextCompat.getColor(holder.itemParent.context, R.color.white)
-            }
-
-            holder.itemParent.setBackgroundColor(bgColor)
-            holder.genreCheck.setTextColor(fgColor)
+            setItemSelection(holder, genre, position)
         }
+    }
+
+    private fun setItemSelection(holder: ViewHolder, genre: Genre, position: Int) {
+        val bgColor = when (genre.isSelected) {
+            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_500_30a)
+            else -> when (position % 2 != 0) {
+                true -> ContextCompat.getColor(holder.itemParent.context, R.color.white_10a)
+                else -> ContextCompat.getColor(holder.itemParent.context, R.color.black)
+            }
+        }
+
+        val fgColor = when (genre.isSelected) {
+            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_300)
+            else -> ContextCompat.getColor(holder.itemParent.context, R.color.white)
+        }
+
+        holder.itemParent.setBackgroundColor(bgColor)
+        holder.genreCheck.setTextColor(fgColor)
     }
 
     override fun getItemCount() = genresList.size

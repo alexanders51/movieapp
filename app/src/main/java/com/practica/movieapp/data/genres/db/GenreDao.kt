@@ -23,6 +23,9 @@ interface GenreDao {
     @Query("DELETE FROM genre")
     fun deleteAll()
 
+    @Query("SELECT COUNT(*) FROM genre")
+    fun size(): Int
+
     @Transaction
     fun replaceAll(genres: List<Genre>) {
         deleteAll()

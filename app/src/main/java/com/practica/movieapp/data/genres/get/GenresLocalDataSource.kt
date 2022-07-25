@@ -14,4 +14,5 @@ class GenresLocalDataSource(database: Database) {
     fun deleteAll() = genreDao.deleteAll()
     fun deleteAll(genres: List<Genre>) = genreDao.deleteAll(genres)
     fun replaceAll(genres: List<Genre>) = genreDao.replaceAll(genres)
+    fun size() = genreDao.size()
 }

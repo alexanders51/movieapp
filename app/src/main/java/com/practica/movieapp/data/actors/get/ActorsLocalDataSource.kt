@@ -14,4 +14,5 @@ class ActorsLocalDataSource(database: Database) {
     fun deleteAll() = actorDao.deleteAll()
     fun deleteAll(actors: List<Actor>) = actorDao.deleteAll(actors)
     fun replaceAll(actors: List<Actor>) = actorDao.replaceAll(actors)
+    fun size() = actorDao.size()
 }

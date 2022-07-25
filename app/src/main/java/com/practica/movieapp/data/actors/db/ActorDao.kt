@@ -23,6 +23,9 @@ interface ActorDao {
     @Query("DELETE FROM actor")
     fun deleteAll()
 
+    @Query("SELECT COUNT(*) FROM actor")
+    fun size(): Int
+
     @Transaction
     fun replaceAll(actors: List<Actor>) {
         deleteAll()

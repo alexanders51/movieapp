@@ -5,12 +5,12 @@
     <string name="tv_splash_text_rand_1">the best movie app ever</string>
     <string name="tv_splash_text_rand_2">you\'ll enjoy using this app</string>
     <string name="tv_splash_text_rand_3">i hope you have a wonderful day</string>
-    <string name="tv_splash_text_rand_4">ur cute :3</string>
+    <string name="tv_splash_text_rand_4">yes</string>
     <string name="tv_splash_text_rand_5">gee that\'s swell</string>
     <string name="tv_splash_text_rand_6">woo that\'s shiny</string>
     <string name="tv_splash_text_rand_7">it\'s not a bug, it\'s a feature</string>
     <string name="tv_splash_text_rand_8">capybara</string>
-    <string name="tv_splash_text_rand_9">coconut doggo</string>
+    <string name="tv_splash_text_rand_9">CAPYBARA !!!!!1!1!</string>
     <string name="btn_actors">Actors</string>
     <string name="btn_genres">Genres</string>
     <string name="genres_title">Genres</string>
@@ -20,12 +20,9 @@
     <string name="title_activity_search_screen">SearchScreenActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">IMBD</string>
+    <string name="nav_header_subtitle">cool movie app</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_saved">Saved</string>
 </resources>

@@ -2,24 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    android:id="@+id/mobileNavigation"
+    app:startDestination="@+id/navSearch">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.practica.movieapp.ui.searchui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navSearch"
+        android:name="com.practica.movieapp.ui.searchui.search.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.practica.movieapp.ui.searchui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.practica.movieapp.ui.searchui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/navSaved"
+        android:name="com.practica.movieapp.ui.searchui.saved.SavedFragment"
+        android:label="@string/menu_saved"
+        tools:layout="@layout/fragment_saved" />
 </navigation>

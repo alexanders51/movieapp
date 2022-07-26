@@ -43,7 +43,8 @@ class LegacySplashActivity : AppCompatActivity() {
     }
 
     private fun openNextScreen() {
-        OnboardingScreenActivity.open(this)
+        //OnboardingScreenActivity.open(this)
+        SearchScreenActivity.open(this)
         finish()
     }
 

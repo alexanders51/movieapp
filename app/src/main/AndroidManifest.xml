@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.practica.movieapp">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -17,26 +17,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp.NoActionBar"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.SearchScreenActivity"
+            android:exported="true"
+            android:label="@string/title_activity_search_screen"
+            android:theme="@style/Theme.MovieApp.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.LegacySplashActivity"
             android:exported="true"
             android:theme="@style/Theme.MovieApp.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.OnboardingScreenActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
-        <activity android:name=".ui.actors.ActorsScreenActivity" android:exported="true" />
-        <activity android:name=".ui.genres.GenresScreenActivity" android:exported="true" />
+        <activity
+            android:name=".ui.actors.ActorsScreenActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.genres.GenresScreenActivity"
+            android:exported="true" />
     </application>
-
 
 </manifest>

@@ -28,8 +28,6 @@ class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<
         return ActorsAdapter.ViewHolder(view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val actor = actorsList[position]
         holder.itemName.text = actor.name

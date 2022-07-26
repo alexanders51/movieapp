@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.practica.movieapp.data.genres.Genre
 
 @Entity(tableName = "actor")
 data class Actor (
@@ -15,4 +16,9 @@ data class Actor (
     @ColumnInfo(name = "adult")         var adult: Boolean,
     @ColumnInfo(name = "popularity")    var popularity: Double,
     @ColumnInfo(name = "is_selected")   var isSelected: Boolean
-)
+) {
+    override fun equals(other: Any?): Boolean =
+        (other is Actor) && id == other.id && name == other.name
+                && profilePath == other.profilePath && adult == other.adult
+                && popularity == other.popularity
+}

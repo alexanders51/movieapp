@@ -20,6 +20,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
          * No logs.
          */
         NONE,
+
         /**
          * Logs request and response lines.
          *
@@ -31,6 +32,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
         `</pre> *
          */
         BASIC,
+
         /**
          * Logs request and response lines and their respective headers.
          *
@@ -49,6 +51,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
         `</pre> *
          */
         HEADERS,
+
         /**
          * Logs request and response lines and their respective headers and bodies (if present).
          *
@@ -70,8 +73,10 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
          */
         BODY
     }
+
     interface Logger {
         fun log(message: String)
+
         companion object {
             /**
              * A [Logger] defaults output appropriate for the current platform.
@@ -83,8 +88,10 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
             }
         }
     }
+
     @Volatile
     private var level = Level.NONE
+
     /**
      * Change the level at which this interceptor logs.
      */
@@ -93,9 +100,11 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
         this.level = level
         return this
     }
+
     fun getLevel(): Level {
         return level
     }
+
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val level = this.level
@@ -131,7 +140,11 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
             while (i < count) {
                 val name = headers.name(i)
                 // Skip headers from the request body as they are explicitly logged above.
-                if (!"Content-Type".equals(name, ignoreCase = true) && !"Content-Length".equals(name, ignoreCase = true)) {
+                if (!"Content-Type".equals(
+                        name,
+                        ignoreCase = true
+                    ) && !"Content-Length".equals(name, ignoreCase = true)
+                ) {
                     logger.log(name + ": " + headers.value(i))
                 }
                 i++
@@ -151,11 +164,15 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
                 logger.log("")
                 if (isPlaintext(buffer)) {
                     logger.log(buffer.readString(charset))
-                    logger.log("--> END " + request.method()
-                            + " (" + (requestBody?.contentLength() ?: "") + "-byte body)")
+                    logger.log(
+                        "--> END " + request.method()
+                                + " (" + (requestBody?.contentLength() ?: "") + "-byte body)"
+                    )
                 } else {
-                    logger.log("--> END " + request.method() + " (binary "
-                            + (requestBody?.contentLength() ?: "") + "-byte body omitted)")
+                    logger.log(
+                        "--> END " + request.method() + " (binary "
+                                + (requestBody?.contentLength() ?: "") + "-byte body omitted)"
+                    )
                 }
             }
         }
@@ -170,13 +187,16 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
         val tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs)
         val responseBody = response.body()
         val contentLength = responseBody?.contentLength()
-        val bodySize = if (contentLength != -1L) contentLength.toString() + "-byte" else "unknown-length"
-        logger.log("<-- " + response.code() + ' ' + response.message() + ' '
-                + response.request().url() + " (" + tookMs + "ms" + (if (!logHeaders)
-            ", "
-                    + bodySize + " body"
-        else
-            "") + ')')
+        val bodySize =
+            if (contentLength != -1L) contentLength.toString() + "-byte" else "unknown-length"
+        logger.log(
+            "<-- " + response.code() + ' ' + response.message() + ' '
+                    + response.request().url() + " (" + tookMs + "ms" + (if (!logHeaders)
+                ", "
+                        + bodySize + " body"
+            else
+                "") + ')'
+        )
         if (logHeaders) {
             val headers = response.headers()
             var i = 0
@@ -201,7 +221,9 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
                 if (buffer != null) {
                     if (!isPlaintext(buffer)) {
                         logger.log("")
-                        logger.log("<-- END HTTP (binary " + (buffer.size() ?: "") + "-byte body omitted)")
+                        logger.log(
+                            "<-- END HTTP (binary " + (buffer.size() ?: "") + "-byte body omitted)"
+                        )
                         return response
                     }
                     if (contentLength != 0L) {
@@ -214,12 +236,15 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
         }
         return response
     }
+
     private fun bodyEncoded(headers: Headers): Boolean {
         val contentEncoding = headers.get("Content-Encoding")
         return contentEncoding != null && !contentEncoding.equals("identity", ignoreCase = true)
     }
+
     companion object {
         private val UTF8 = Charset.forName("UTF-8")
+
         /**
          * Returns true if the body in question probably contains human readable text. Uses a small sample
          * of code points to detect unicode control characters commonly used in binary file signatures.

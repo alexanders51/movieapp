@@ -34,7 +34,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".ui.actors.ActorsScreenActivity" android:exported="true" />
         <activity android:name=".ui.genres.GenresScreenActivity" android:exported="true" />
     </application>

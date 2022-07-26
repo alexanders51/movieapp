@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -32,20 +31,16 @@ class SearchScreenActivity : AppCompatActivity() {
         binding = ActivitySearchScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarSearchScreen.toolbar)
+        setSupportActionBar(binding.appBarSearchScreen.wToolbar)
 
-        binding.appBarSearchScreen.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_search_screen)
+        val navController = findNavController(R.id.navHostFragmentContentSearchScreen)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.navSearch, R.id.navSaved
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -58,7 +53,7 @@ class SearchScreenActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_search_screen)
+        val navController = findNavController(R.id.navHostFragmentContentSearchScreen)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

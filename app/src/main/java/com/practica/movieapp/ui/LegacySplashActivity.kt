@@ -6,8 +6,14 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Window
 import android.widget.TextView
+import androidx.activity.contextaware.withContextAvailable
 import androidx.appcompat.app.AppCompatActivity
 import com.practica.movieapp.R
+import com.practica.movieapp.data.RemoteDataRetriever
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 private const val ARRAY_MAXSZ: Int = 9
@@ -43,9 +49,16 @@ class LegacySplashActivity : AppCompatActivity() {
     }
 
     private fun openNextScreen() {
-        //OnboardingScreenActivity.open(this)
-        SearchScreenActivity.open(this)
-        finish()
+        GlobalScope.launch(Dispatchers.IO) {
+            val flag = RemoteDataRetriever.userPreferencesExist()
+            withContext(Dispatchers.Main) {
+                when (flag) {
+                    true -> SearchScreenActivity.open(this@LegacySplashActivity)
+                    else -> OnboardingScreenActivity.open(this@LegacySplashActivity)
+                }
+                finish()
+            }
+        }
     }
 
     override fun onDestroy() {

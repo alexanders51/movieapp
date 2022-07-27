@@ -25,4 +25,7 @@ object RemoteDataRetriever {
 
     fun getPreloadedGenres() = genres
     fun getPreloadedActors() = actors
+
+    fun userPreferencesExist() =
+        (actorRep.getCount() != 0) && (genreRep.getCount() != 0)
 }

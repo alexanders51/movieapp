@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:fontFamily="@font/loor"
+            android:fontFamily="@font/ao"
             android:text="@string/genres_title"
             android:textSize="@dimen/dimen_title_text_size" />
 

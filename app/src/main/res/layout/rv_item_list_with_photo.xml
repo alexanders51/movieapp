@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="105dp"
+        android:layout_height="158dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
@@ -41,8 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
             tools:text="Placeholder" />
 
     </LinearLayout>

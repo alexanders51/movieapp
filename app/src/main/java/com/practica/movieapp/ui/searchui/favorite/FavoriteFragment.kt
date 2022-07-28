@@ -1,6 +1,5 @@
 package com.practica.movieapp.ui.searchui.favorite
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +12,6 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentCorasonBinding? = null
 
     private val binding get() = _binding!!
-
-    private lateinit var viewModel: FavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -5,28 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.practica.movieapp.databinding.FragmentSearchBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.practica.movieapp.R
+import com.practica.movieapp.data.RemoteDataRetriever
+import com.practica.movieapp.data.movies.Movie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private var _binding: FragmentSearchBinding? = null
+    private var movies : List<Movie> = emptyList()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        GlobalScope.launch (Dispatchers.IO) {
+            RemoteDataRetriever.updateMovies()
+            movies = RemoteDataRetriever.getPreloadedMovies()
+            withContext(Dispatchers.Main) {
+                setupRecyclerView(view)
+            }
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView(view: View) {
+        val rvItems = view.findViewById<RecyclerView>(R.id.rvMovieItems)
+        rvItems.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+        rvItems.adapter = SearchMoviesAdapter(movies)
     }
 }

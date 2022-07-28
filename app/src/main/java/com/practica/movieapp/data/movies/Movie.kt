@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "genre")
+@Entity(tableName = "movie")
 data class Movie(
     @PrimaryKey
     @NonNull
@@ -13,7 +13,7 @@ data class Movie(
     @ColumnInfo(name = "original_title")  var originalTitle: String,
     @ColumnInfo(name = "title")           var title: String,
     @ColumnInfo(name = "overview")        var overview: String,
-    @ColumnInfo(name = "release_date")    var releaseDate: String,
+    @ColumnInfo(name = "release_date")    var releaseDate: String?,
     @ColumnInfo(name = "adult")           var adult: Boolean,
     @ColumnInfo(name = "poster_path")     var posterPath: String?,
     @ColumnInfo(name = "backdrop_path")   var backdropPath: String?,

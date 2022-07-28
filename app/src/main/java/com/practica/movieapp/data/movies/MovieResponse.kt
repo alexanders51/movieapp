@@ -7,7 +7,7 @@ data class MovieResponse (
     @SerializedName("original_title")  var originalTitle: String,
     @SerializedName("title")           var title: String,
     @SerializedName("overview")        var overview: String,
-    @SerializedName("release_date")    var releaseDate: String,
+    @SerializedName("release_date")    var releaseDate: String?,
     @SerializedName("adult")           var adult: Boolean,
     @SerializedName("poster_path")     var posterPath: String?,
     @SerializedName("backdrop_path")   var backdropPath: String?,

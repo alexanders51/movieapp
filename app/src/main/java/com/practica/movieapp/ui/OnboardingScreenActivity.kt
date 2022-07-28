@@ -37,6 +37,7 @@ class OnboardingScreenActivity : AppCompatActivity() {
         super.onResume()
         GlobalScope.launch(Dispatchers.IO) {
             val flag = RemoteDataRetriever.userPreferencesExist()
+            if (flag) RemoteDataRetriever.updateMovies()
             withContext(Dispatchers.Main) {
                 if (flag) {
                     SearchScreenActivity.open(this@OnboardingScreenActivity)

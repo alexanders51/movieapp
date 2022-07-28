@@ -62,6 +62,7 @@ class GenresScreenActivity : AppCompatActivity() {
     private fun updateDatabase() {
         GlobalScope.launch(Dispatchers.IO) {
             genreRepository.replaceAllLocal(filterSelected())
+            RemoteDataRetriever.updateMovies()
             withContext(Dispatchers.Main) {
                 finish()
             }

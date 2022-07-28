@@ -51,6 +51,7 @@ class LegacySplashActivity : AppCompatActivity() {
     private fun openNextScreen() {
         GlobalScope.launch(Dispatchers.IO) {
             val flag = RemoteDataRetriever.userPreferencesExist()
+            if (flag) RemoteDataRetriever.updateMovies()
             withContext(Dispatchers.Main) {
                 when (flag) {
                     true -> SearchScreenActivity.open(this@LegacySplashActivity)

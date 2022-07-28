@@ -63,6 +63,7 @@ class ActorsScreenActivity : AppCompatActivity() {
     private fun updateDatabase() {
         GlobalScope.launch(Dispatchers.IO) {
             actorRepository.replaceAllLocal(filterSelected())
+            RemoteDataRetriever.updateMovies()
             withContext(Dispatchers.Main) {
                 finish()
             }

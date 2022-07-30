@@ -16,10 +16,4 @@
         android:name="com.practica.movieapp.ui.searchui.saved.SavedFragment"
         android:label="@string/menu_saved"
         tools:layout="@layout/fragment_saved" />
-
-    <fragment
-        android:id="@+id/navFavorite"
-        android:name="com.practica.movieapp.ui.searchui.favorite.FavoriteFragment"
-        android:label="@string/menu_favorite"
-        tools:layout="@layout/fragment_corason" />
 </navigation>

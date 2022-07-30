@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="violet_200">#ffd393f8</color>
+    <color name="violet_200_30a">#30d393f8</color>
     <color name="violet_300">#ffc066f5</color>
     <color name="violet_500">#ffa202ee</color>
     <color name="violet_600">#ff8f0ae8</color>

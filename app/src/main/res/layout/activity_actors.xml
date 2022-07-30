@@ -37,10 +37,10 @@
             android:textSize="14sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAItems"
+            android:id="@+id/rvActorsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/rv_item_list_with_photo" />
+            tools:listitem="@layout/photo_item_list" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

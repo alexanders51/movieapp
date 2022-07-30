@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SearchScreenActivity">
+    tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MovieApp.NoActionBar">
+        android:theme="@style/Theme.MovieApp.NoActionBar.NoActionBar">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/wToolbar"
+            android:id="@+id/wMainToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:foregroundTint="@color/black"
-            app:popupTheme="@style/Theme.MovieApp.NoActionBar"
-            app:titleTextColor="@color/black" />
+            android:foregroundTint="?attr/colorOnPrimary"
+            app:titleTextColor="?attr/colorOnPrimary"
+            app:popupTheme="@style/Theme.MovieApp.NoActionBar.NoActionBar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_search_screen" />
+    <include layout="@layout/content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

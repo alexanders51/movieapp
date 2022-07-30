@@ -25,7 +25,7 @@
             android:id="@+id/ivOnboardingLogo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/iv_splash_logo_height"
-            app:srcCompat="@drawable/logov2" />
+            app:srcCompat="@drawable/ic_totem" />
 
         <LinearLayout
             android:layout_width="match_parent"

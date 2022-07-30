@@ -43,7 +43,7 @@
             android:id="@+id/rvGItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/rv_item_list" />
+            tools:listitem="@layout/simple_item_list" />
 
     </LinearLayout>
 

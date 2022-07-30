@@ -130,7 +130,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
                 if (requestBody?.contentType() != null) {
                     logger.log("Content-Type: " + requestBody.contentType())
                 }
-                if (requestBody?.contentLength() ?: -1L != -1L) {
+                if ((requestBody?.contentLength() ?: -1L) != -1L) {
                     logger.log("Content-Length: " + requestBody!!.contentLength())
                 }
             }
@@ -181,7 +181,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
         try {
             response = chain.proceed(request)
         } catch (e: Exception) {
-            logger.log("<-- HTTP FAILED: " + e)
+            logger.log("<-- HTTP FAILED: $e")
             throw e
         }
         val tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs)
@@ -212,7 +212,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
             } else {
                 val source = responseBody?.source()
                 source?.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
-                val buffer = source?.buffer()
+                val buffer = source?.buffer
                 var charset = UTF8
                 val contentType = responseBody?.contentType()
                 if (contentType != null) {
@@ -222,7 +222,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
                     if (!isPlaintext(buffer)) {
                         logger.log("")
                         logger.log(
-                            "<-- END HTTP (binary " + (buffer.size() ?: "") + "-byte body omitted)"
+                            "<-- END HTTP (binary " + buffer.size() + " - byte body omitted)"
                         )
                         return response
                     }
@@ -231,7 +231,7 @@ class LoggingInterceptor(private val logger: Logger = Logger.DEFAULT) : Intercep
                         logger.log(buffer.clone().readString(charset) ?: "")
                     }
                 }
-                logger.log("<-- END HTTP (" + (buffer?.size() ?: "") + "-byte body)")
+                logger.log("<-- END HTTP (" + (buffer?.size() ?: "") + " - byte body)")
             }
         }
         return response

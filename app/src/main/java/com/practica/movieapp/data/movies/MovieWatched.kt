@@ -5,8 +5,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "movie")
-data class Movie (
+@Entity(tableName = "movie_watched")
+data class MovieWatched (
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")              override var id: Int,
@@ -17,4 +17,7 @@ data class Movie (
     @ColumnInfo(name = "adult")           override var adult: Boolean,
     @ColumnInfo(name = "poster_path")     override var posterPath: String?,
     @ColumnInfo(name = "backdrop_path")   override var backdropPath: String?,
-) : MovieBase()
+    @ColumnInfo(name = "is_watched")               var isWatched: Boolean
+) : MovieBase() {
+    override fun equals(other: Any?): Boolean = super.equals(other)
+}

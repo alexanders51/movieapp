@@ -28,7 +28,7 @@ class MoviesAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.movie_item_list, parent, false)
 
-        return MoviesAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

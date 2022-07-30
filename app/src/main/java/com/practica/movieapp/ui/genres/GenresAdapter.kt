@@ -18,7 +18,7 @@ class GenresAdapter(private val genresList: List<Genre>) : RecyclerView.Adapter<
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rv_item_list, parent, false)
+            .inflate(R.layout.simple_item_list, parent, false)
 
         return ViewHolder(view)
     }

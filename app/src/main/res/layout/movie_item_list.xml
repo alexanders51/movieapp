@@ -42,14 +42,17 @@
             android:id="@+id/tvReleaseDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/tvOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:minHeight="64dp"
             android:text="TextView"
+            android:textColor="#B5B5B5"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -67,11 +70,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/bestlogo" />
+        tools:tint="@color/violet_300"
+        tools:background="@color/violet_200_30a"
+        app:srcCompat="@drawable/ic_image_placeholder" />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="36dp"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -80,24 +85,27 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/ivMovie"
         app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
-        <ImageView
-            android:id="@+id/ivSelectFavorite"
-            android:layout_width="36dp"
-            android:layout_height="match_parent"
+        <ImageButton
+            android:id="@+id/btnSelFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/violet_200_30a"
             app:srcCompat="@drawable/ic_corason_border"
-            app:tint="@color/violet_200" />
+            app:tint="?attr/colorPrimary" />
 
-        <ImageView
-            android:id="@+id/ivSelectSaved"
-            android:layout_width="36dp"
-            android:layout_height="match_parent"
+        <ImageButton
+            android:id="@+id/btnSelWatched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/violet_200_30a"
             app:srcCompat="@drawable/ic_saved_border"
-            app:tint="@color/violet_200" />
+            app:tint="?attr/colorPrimary" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

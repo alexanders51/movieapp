@@ -12,19 +12,17 @@ import com.practica.movieapp.R
 import com.practica.movieapp.data.RemoteDataRetriever
 import com.practica.movieapp.data.actors.Actor
 import com.practica.movieapp.data.actors.get.ActorRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
-class ActorsScreenActivity : AppCompatActivity() {
+class ActorsActivity : AppCompatActivity() {
     private var actors : List<Actor> = emptyList()
     private var actorRepository = ActorRepository.instance
-    private val iActorPage = 1;
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     companion object {
         fun open(context: Context) {
-            context.startActivity(Intent(context, ActorsScreenActivity::class.java))
+            context.startActivity(Intent(context, ActorsActivity::class.java))
         }
     }
 
@@ -37,9 +35,9 @@ class ActorsScreenActivity : AppCompatActivity() {
     }
 
     private fun getActors() {
-        GlobalScope.launch {
+        CoroutineScope(ioDispatcher).launch {
             actors = RemoteDataRetriever.getPreloadedActors()
-            withContext(Dispatchers.Main) {
+            withContext(mainDispatcher) {
                 preselectItems()
             }
         }
@@ -48,32 +46,37 @@ class ActorsScreenActivity : AppCompatActivity() {
     private fun filterSelected() = actors.filter { actor -> actor.isSelected }
 
     private fun setupRecyclerView() {
-        val rvItems = findViewById<RecyclerView>(R.id.rvAItems)
-        rvItems.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rvItems.adapter = ActorsAdapter(actors)
+        val rv = findViewById<RecyclerView>(R.id.rvActorsList)
+
+        val llm = LinearLayoutManager(this)
+        llm.orientation = LinearLayoutManager.VERTICAL
+        llm.reverseLayout = false
+
+        rv.layoutManager = llm
+        rv.adapter = ActorsAdapter(actors)
     }
 
     private fun setOnClickListeners() {
-        val fabSubmit: FloatingActionButton = findViewById<FloatingActionButton>(R.id.fabSubmit)
+        val fabSubmit = findViewById<FloatingActionButton>(R.id.fabSubmit)
         fabSubmit.setOnClickListener {
             updateDatabase()
         }
     }
 
     private fun updateDatabase() {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(ioDispatcher).launch {
             actorRepository.replaceAllLocal(filterSelected())
             RemoteDataRetriever.updateMovies()
-            withContext(Dispatchers.Main) {
+            withContext(mainDispatcher) {
                 finish()
             }
         }
     }
 
     private fun preselectItems() {
-        GlobalScope.launch(Dispatchers.IO) {
-            var saved = actorRepository.getAllLocalActors()
-            withContext(Dispatchers.Main) {
+        CoroutineScope(ioDispatcher).launch {
+            val saved = actorRepository.getAllLocalActors()
+            withContext(mainDispatcher) {
                 actors.forEach { actor -> actor.isSelected = saved.contains(actor) }
                 setupRecyclerView()
             }

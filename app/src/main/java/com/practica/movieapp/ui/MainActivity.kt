@@ -13,33 +13,35 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.practica.movieapp.R
-import com.practica.movieapp.databinding.ActivitySearchScreenBinding
+import com.practica.movieapp.databinding.ActivityMainBinding
 
-class SearchScreenActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivitySearchScreenBinding
+
+    private lateinit var _binding: ActivityMainBinding
+    private val binding get() = _binding!!
 
     companion object {
         fun open(context: Context) {
-            context.startActivity(Intent(context, SearchScreenActivity::class.java))
+            context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySearchScreenBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarSearchScreen.wToolbar)
+        setSupportActionBar(binding.appBarMain.wMainToolbar)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.navHostFragmentContentSearchScreen)
+        val navController = findNavController(R.id.navHostFragmentContentMain)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navSearch, R.id.navSaved, R.id.navFavorite
+                R.id.navSearch, R.id.navSaved
             ), drawerLayout
         )
 
@@ -52,7 +54,7 @@ class SearchScreenActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.navHostFragmentContentSearchScreen)
+        val navController = findNavController(R.id.navHostFragmentContentMain)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

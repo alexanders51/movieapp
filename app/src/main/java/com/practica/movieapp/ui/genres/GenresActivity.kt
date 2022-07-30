@@ -17,13 +17,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class GenresScreenActivity : AppCompatActivity() {
+class GenresActivity : AppCompatActivity() {
     private var genres: List<Genre> = emptyList()
     private var genreRepository = GenreRepository.instance
 
     companion object {
         fun open(context: Context) {
-            context.startActivity(Intent(context, GenresScreenActivity::class.java))
+            context.startActivity(Intent(context, GenresActivity::class.java))
         }
     }
 

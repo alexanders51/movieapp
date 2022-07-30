@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Window
 import android.widget.TextView
-import androidx.activity.contextaware.withContextAvailable
 import androidx.appcompat.app.AppCompatActivity
 import com.practica.movieapp.R
 import com.practica.movieapp.data.RemoteDataRetriever
@@ -31,7 +30,7 @@ class LegacySplashActivity : AppCompatActivity() {
         window.requestFeature(Window.FEATURE_NO_TITLE)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_legacy_splash)
+        setContentView(R.layout.activity_splash)
 
         loadRandomStringsArray()
         setRandomString()
@@ -54,8 +53,8 @@ class LegacySplashActivity : AppCompatActivity() {
             if (flag) RemoteDataRetriever.updateMovies()
             withContext(Dispatchers.Main) {
                 when (flag) {
-                    true -> SearchScreenActivity.open(this@LegacySplashActivity)
-                    else -> OnboardingScreenActivity.open(this@LegacySplashActivity)
+                    true -> MainActivity.open(this@LegacySplashActivity)
+                    else -> OnboardingActivity.open(this@LegacySplashActivity)
                 }
                 finish()
             }

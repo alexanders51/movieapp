@@ -8,21 +8,21 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.practica.movieapp.R
 import com.practica.movieapp.data.RemoteDataRetriever
-import com.practica.movieapp.ui.actors.ActorsScreenActivity
-import com.practica.movieapp.ui.genres.GenresScreenActivity
+import com.practica.movieapp.ui.actors.ActorsActivity
+import com.practica.movieapp.ui.genres.GenresActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.properties.Delegates
 
-class OnboardingScreenActivity : AppCompatActivity() {
+class OnboardingActivity : AppCompatActivity() {
     private var btnActors by Delegates.notNull<Int>();
     private var btnGenres by Delegates.notNull<Int>();
 
     companion object {
         fun open(context: Context) {
-            context.startActivity(Intent(context, OnboardingScreenActivity::class.java))
+            context.startActivity(Intent(context, OnboardingActivity::class.java))
         }
     }
 
@@ -40,7 +40,7 @@ class OnboardingScreenActivity : AppCompatActivity() {
             if (flag) RemoteDataRetriever.updateMovies()
             withContext(Dispatchers.Main) {
                 if (flag) {
-                    SearchScreenActivity.open(this@OnboardingScreenActivity)
+                    MainActivity.open(this@OnboardingActivity)
                     finish()
                 }
             }
@@ -52,11 +52,11 @@ class OnboardingScreenActivity : AppCompatActivity() {
         val btnGenres = findViewById<Button>(R.id.btnGenres);
 
         btnGenres.setOnClickListener {
-            GenresScreenActivity.open(this)
+            GenresActivity.open(this)
         }
 
         btnActors.setOnClickListener {
-            ActorsScreenActivity.open(this)
+            ActorsActivity.open(this)
         }
     }
 }

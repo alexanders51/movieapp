@@ -1,34 +1,22 @@
 package com.practica.movieapp.ui.searchui.saved
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.practica.movieapp.databinding.FragmentSavedBinding
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import com.practica.movieapp.R
+import com.practica.movieapp.ui.searchui.saved.tabs.SectionsPagerAdapter
 
-class SavedFragment : Fragment() {
+class SavedFragment : Fragment(R.layout.fragment_saved) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    private var _binding: FragmentSavedBinding? = null
+        val sectionsPagerAdapter = SectionsPagerAdapter(view.context, childFragmentManager)
+        val viewPager: ViewPager = view.findViewById(R.id.ftViewPager)
+        val tabs: TabLayout = view.findViewById(R.id.ftTabs)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        viewPager.adapter = sectionsPagerAdapter
+        tabs.setupWithViewPager(viewPager)
     }
 }

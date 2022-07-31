@@ -10,14 +10,16 @@ import com.practica.movieapp.data.movies.MovieWatched
 import com.practica.movieapp.data.movies.get.MoviesRepository
 import kotlinx.coroutines.*
 
-object RemoteDataRetriever {
+object DataHandler {
     const val ACTOR_PAGE_NR = 1
 
     private var genres: List<Genre> = emptyList()
-    private var actors : List<Actor> = emptyList()
-    private var movies : List<Movie> = emptyList()
-    private var moviesFavorite : List<MovieFavorite> = emptyList()
-    private var moviesWatched : List<MovieWatched> = emptyList()
+    private var actors: List<Actor> = emptyList()
+    private var genresLocal: List<Genre> = emptyList()
+    private var actorsLocal: List<Actor> = emptyList()
+    private var movies: List<Movie> = emptyList()
+    private var moviesFavorite: List<MovieFavorite> = emptyList()
+    private var moviesWatched: List<MovieWatched> = emptyList()
 
     private var actorRep = ActorRepository.instance
     private var genreRep = GenreRepository.instance
@@ -30,6 +32,7 @@ object RemoteDataRetriever {
             genres = genreRep.getAllRemoteGenres()
             actors = actorRep.getRemoteActorsFromPage(ACTOR_PAGE_NR)
 
+            updateLocal()
             updateMovies()
         }
     }
@@ -43,8 +46,16 @@ object RemoteDataRetriever {
         moviesWatched = movieRep.getAllLocalWatchedMovies()
     }
 
+    fun updateLocal() {
+        genresLocal = genreRep.getAllLocalGenres()
+        actorsLocal = actorRep.getAllLocalActors()
+    }
+
     fun getPreloadedGenres() = genres
     fun getPreloadedActors() = actors
+    fun getLocalGenres() = genresLocal
+    fun getLocalActors() = actorsLocal
+
     fun getPreloadedMovies() = movies
     fun getPreloadedMoviesFavorite() = moviesFavorite
     fun getPreloadedMoviesWatched() = moviesWatched

@@ -9,7 +9,7 @@ import com.practica.movieapp.data.configuration.ConfigurationRetriever
 import com.practica.movieapp.network.ApiClient
 import kotlinx.coroutines.*
 
-object ImageDownloadManager {
+object ImageHandler {
     private lateinit var configurationImagesResponse: ConfigurationImagesResponse
     private var configurationRetriever: ConfigurationRetriever = ConfigurationRetriever(ApiClient.instance.retrofit!!)
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO

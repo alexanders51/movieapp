@@ -17,8 +17,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32"
+        app:layout_constraintVertical_bias="0.24000001"
         app:srcCompat="@drawable/ic_totem" />
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:fontFamily="@font/ao"
+        android:textAllCaps="true"
+        android:letterSpacing="0.03"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSplashLogo"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <TextView
         android:id="@+id/tvSplashText"
@@ -26,14 +42,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tv_splash_text_margin"
         android:layout_marginEnd="@dimen/tv_splash_text_margin"
+        android:fontFamily="@font/ao"
         android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="0.03"
         android:text="@string/tv_splash_text_placeholder"
-        android:textColor="?colorPrimary"
         android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
         android:textSize="@dimen/tv_splash_text_font_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivSplashLogo"
-        app:layout_constraintVertical_bias="0.66" />
+        app:layout_constraintVertical_bias="0.72" />
 </androidx.constraintlayout.widget.ConstraintLayout>

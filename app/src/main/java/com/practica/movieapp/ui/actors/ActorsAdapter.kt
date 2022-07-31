@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
-import com.practica.movieapp.data.ImageDownloadManager
+import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.actors.Actor
 
 class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<ActorsAdapter.ViewHolder>() {
@@ -30,7 +30,7 @@ class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<
         val actor = actorsList[position]
         holder.itemName.text = actor.name
 
-        ImageDownloadManager.downloadH632ImageWithPath(holder.itemImage.context, actor.profilePath!!, holder.itemImage)
+        ImageHandler.downloadH632ImageWithPath(holder.itemImage.context, actor.profilePath, holder.itemImage)
 
         setItemSelection(holder, actor, position)
 

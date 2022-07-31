@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
-import com.practica.movieapp.data.ImageDownloadManager
+import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.movies.Movie
 
 class MoviesAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>(){
@@ -34,9 +34,9 @@ class MoviesAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = moviesList[position]
 
-        ImageDownloadManager.downloadH632ImageWithPath(holder.itemIvMovie.context, movie.posterPath, holder.itemIvMovie)
+        ImageHandler.downloadH632ImageWithPath(holder.itemIvMovie.context, movie.posterPath, holder.itemIvMovie)
 
-        holder.itemIvTitle.text = movie.title + if (movie.adult) " - NSFW" else ""
+        holder.itemIvTitle.text = movie.title
         holder.itemIvOriginalTitle.text = movie.originalTitle
         holder.itemIvOverview.text = movie.overview
         holder.itemIvReleaseDate.text = movie.releaseDate

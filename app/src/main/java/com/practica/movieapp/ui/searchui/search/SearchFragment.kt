@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
-import com.practica.movieapp.data.RemoteDataRetriever
+import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
 import kotlinx.coroutines.*
 
@@ -19,8 +19,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
 
         CoroutineScope(ioDispatcher).launch {
-            RemoteDataRetriever.updateMovies()
-            movies = RemoteDataRetriever.getPreloadedMovies()
+            DataHandler.updateMovies()
+            movies = DataHandler.getPreloadedMovies()
             withContext(mainDispatcher) {
                 setupRecyclerView(view)
             }

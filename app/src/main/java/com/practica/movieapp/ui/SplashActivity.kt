@@ -8,7 +8,7 @@ import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.practica.movieapp.R
-import com.practica.movieapp.data.RemoteDataRetriever
+import com.practica.movieapp.data.DataHandler
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import java.util.*
@@ -50,8 +50,12 @@ class LegacySplashActivity : AppCompatActivity() {
 
     private fun openNextScreen() {
         CoroutineScope(ioDispatcher).launch {
-            val flag = RemoteDataRetriever.userPreferencesExist()
-            if (flag) RemoteDataRetriever.updateMovies()
+            val flag = DataHandler.userPreferencesExist()
+            if (flag) {
+                DataHandler.updateLocal()
+                DataHandler.updateMovies()
+            }
+
             withContext(mainDispatcher) {
                 when (flag) {
                     true -> MainActivity.open(this@LegacySplashActivity)

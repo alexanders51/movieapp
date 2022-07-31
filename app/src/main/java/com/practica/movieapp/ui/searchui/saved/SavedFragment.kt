@@ -24,8 +24,9 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         val viewPager = view.findViewById<ViewPager2>(R.id.ftViewPager)
         val tabs: TabLayout = view.findViewById(R.id.ftTabs)
 
-        adapter?.addFragment(PlaceholderFragment.newInstance(1), getString(tabTitles[0]))
-        adapter?.addFragment(PlaceholderFragment.newInstance(2), getString(tabTitles[1]))
+        for (i in tabTitles.indices) {
+            adapter?.addFragment(PlaceholderFragment.newInstance(i + 1), getString(tabTitles[i]))
+        }
 
         viewPager.adapter = adapter!!
         viewPager.currentItem = 0

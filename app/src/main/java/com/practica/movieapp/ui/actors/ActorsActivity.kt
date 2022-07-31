@@ -1,6 +1,6 @@
 package com.practica.movieapp.ui.actors
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Window
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.practica.movieapp.R
-import com.practica.movieapp.data.RemoteDataRetriever
+import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.actors.Actor
 import com.practica.movieapp.data.actors.get.ActorRepository
 import kotlinx.coroutines.*
@@ -21,9 +21,7 @@ class ActorsActivity : AppCompatActivity() {
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     companion object {
-        fun open(context: Context) {
-            context.startActivity(Intent(context, ActorsActivity::class.java))
-        }
+        const val GENRES_RETURN_DATA: String = "actorsReturnData"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +34,7 @@ class ActorsActivity : AppCompatActivity() {
 
     private fun getActors() {
         CoroutineScope(ioDispatcher).launch {
-            actors = RemoteDataRetriever.getPreloadedActors()
+            actors = DataHandler.getPreloadedActors()
             withContext(mainDispatcher) {
                 preselectItems()
             }
@@ -66,8 +64,13 @@ class ActorsActivity : AppCompatActivity() {
     private fun updateDatabase() {
         CoroutineScope(ioDispatcher).launch {
             actorRepository.replaceAllLocal(filterSelected())
-            RemoteDataRetriever.updateMovies()
+            DataHandler.updateMovies()
             withContext(mainDispatcher) {
+                val selected = actors.filter { it.isSelected }.map { it.name }
+                val returnData = ActorsReturnData(selected.size, selected.toTypedArray())
+                val intent = Intent()
+                intent.putExtra(GENRES_RETURN_DATA, returnData)
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
         }

@@ -1,6 +1,6 @@
 package com.practica.movieapp.ui.genres
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Window
@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.practica.movieapp.R
-import com.practica.movieapp.data.RemoteDataRetriever
+import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.genres.Genre
 import com.practica.movieapp.data.genres.get.GenreRepository
+import com.practica.movieapp.ui.actors.ActorsAdapter
 import kotlinx.coroutines.*
 
 class GenresActivity : AppCompatActivity() {
@@ -21,9 +22,7 @@ class GenresActivity : AppCompatActivity() {
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     companion object {
-        fun open(context: Context) {
-            context.startActivity(Intent(context, GenresActivity::class.java))
-        }
+        const val GENRES_RETURN_DATA: String = "genresReturnData"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +35,7 @@ class GenresActivity : AppCompatActivity() {
 
     private fun getGenres() {
         CoroutineScope(ioDispatcher).launch {
-            genres = RemoteDataRetriever.getPreloadedGenres()
+            genres = DataHandler.getPreloadedGenres()
             withContext(mainDispatcher){
                 preselectItems()
             }
@@ -46,9 +45,14 @@ class GenresActivity : AppCompatActivity() {
     private fun filterSelected() = genres.filter { genre -> genre.isSelected }
 
     private fun setupRecyclerView() {
-        val rvItems = findViewById<RecyclerView>(R.id.rvGItems)
-        rvItems.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rvItems.adapter = GenresAdapter(genres)
+        val rv = findViewById<RecyclerView>(R.id.rvGenresList)
+
+        val llm = LinearLayoutManager(this)
+        llm.orientation = LinearLayoutManager.VERTICAL
+        llm.reverseLayout = false
+
+        rv.layoutManager = llm
+        rv.adapter = GenresAdapter(genres)
     }
 
     private fun setOnClickListeners() {
@@ -61,8 +65,13 @@ class GenresActivity : AppCompatActivity() {
     private fun updateDatabase() {
         CoroutineScope(ioDispatcher).launch {
             genreRepository.replaceAllLocal(filterSelected())
-            RemoteDataRetriever.updateMovies()
+            DataHandler.updateMovies()
             withContext(mainDispatcher){
+                val selected = genres.filter { it.isSelected }.map { it.name }
+                val returnData = GenresReturnData(selected.size, selected.toTypedArray())
+                val intent = Intent()
+                intent.putExtra(GENRES_RETURN_DATA, returnData)
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
         }

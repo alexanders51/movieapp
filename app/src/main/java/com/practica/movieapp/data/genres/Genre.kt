@@ -15,4 +15,11 @@ data class Genre(
 ) {
     override fun equals(other: Any?): Boolean =
         (other is Genre) && id == other.id && name == other.name
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + name.hashCode()
+        result = 31 * result + isSelected.hashCode()
+        return result
+    }
 }

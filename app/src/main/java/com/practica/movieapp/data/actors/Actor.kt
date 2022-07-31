@@ -4,7 +4,6 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.practica.movieapp.data.genres.Genre
 
 @Entity(tableName = "actor")
 data class Actor (
@@ -21,4 +20,14 @@ data class Actor (
         (other is Actor) && id == other.id && name == other.name
                 && profilePath == other.profilePath && adult == other.adult
                 && popularity == other.popularity
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + name.hashCode()
+        result = 31 * result + (profilePath?.hashCode() ?: 0)
+        result = 31 * result + adult.hashCode()
+        result = 31 * result + popularity.hashCode()
+        result = 31 * result + isSelected.hashCode()
+        return result
+    }
 }

@@ -20,4 +20,10 @@ data class MovieFavorite (
     @ColumnInfo(name = "is_favorite")              var isFavorite: Boolean
 ) : MovieBase() {
     override fun equals(other: Any?): Boolean = super.equals(other)
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + isFavorite.hashCode()
+        return result
+    }
 }

@@ -13,6 +13,13 @@
     <string name="tv_splash_text_rand_9">Live, laugh, love!</string>
     <string name="btn_actors">Actors</string>
     <string name="btn_genres">Genres</string>
+    <string name="welcome_onboarding">Welcome to MovieApp</string>
+    <string name="head_onboarding">To begin discovering movies, choose your preferences.</string>
+    <string name="number_one">1.</string>
+    <string name="number_two">2.</string>
+    <string name="actors_check_desc">Saved preferences for Actors</string>
+    <string name="genres_check_desc">Saved preferences for genres</string>
+    <string name="fab_onboarding_desc">Click the floating button to proceed further</string>
     <string name="genres_title">Genres</string>
     <string name="actors_title">Actors</string>
     <string name="genres_desc">Select your preferences in the list below …</string>

@@ -12,14 +12,13 @@ import com.practica.movieapp.R
 import com.practica.movieapp.data.RemoteDataRetriever
 import com.practica.movieapp.data.genres.Genre
 import com.practica.movieapp.data.genres.get.GenreRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class GenresActivity : AppCompatActivity() {
     private var genres: List<Genre> = emptyList()
     private var genreRepository = GenreRepository.instance
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     companion object {
         fun open(context: Context) {
@@ -28,7 +27,7 @@ class GenresActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_NO_TITLE);
+        window.requestFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_genres)
         setOnClickListeners()
@@ -36,9 +35,9 @@ class GenresActivity : AppCompatActivity() {
     }
 
     private fun getGenres() {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(ioDispatcher).launch {
             genres = RemoteDataRetriever.getPreloadedGenres()
-            withContext(Dispatchers.Main){
+            withContext(mainDispatcher){
                 preselectItems()
             }
         }
@@ -53,26 +52,26 @@ class GenresActivity : AppCompatActivity() {
     }
 
     private fun setOnClickListeners() {
-        val fabSubmit: FloatingActionButton = findViewById<FloatingActionButton>(R.id.fabSubmit)
+        val fabSubmit = findViewById<FloatingActionButton>(R.id.fabSubmit)
         fabSubmit.setOnClickListener {
             updateDatabase()
         }
     }
 
     private fun updateDatabase() {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(ioDispatcher).launch {
             genreRepository.replaceAllLocal(filterSelected())
             RemoteDataRetriever.updateMovies()
-            withContext(Dispatchers.Main) {
+            withContext(mainDispatcher){
                 finish()
             }
         }
     }
 
     private fun preselectItems() {
-        GlobalScope.launch(Dispatchers.IO) {
-            var saved = genreRepository.getAllLocalGenres()
-            withContext(Dispatchers.Main) {
+        CoroutineScope(ioDispatcher).launch {
+            val saved = genreRepository.getAllLocalGenres()
+            withContext(mainDispatcher){
                 genres.forEach { genre -> genre.isSelected = saved.contains(genre) }
                 setupRecyclerView()
             }

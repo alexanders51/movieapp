@@ -14,14 +14,14 @@ import com.practica.movieapp.data.movies.Movie
 
 class MoviesAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>(){
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemParent: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.itemParent)
-        val itemIvMovie: ImageView = view.findViewById<ImageView>(R.id.ivMovie)
-        val itemIvTitle: TextView = view.findViewById<TextView>(R.id.tvTitle)
-        val itemIvOriginalTitle: TextView = view.findViewById<TextView>(R.id.tvOriginalTitle)
-        val itemIvReleaseDate: TextView = view.findViewById<TextView>(R.id.tvReleaseDate)
-        val itemIvOverview: TextView = view.findViewById<TextView>(R.id.tvOverview)
-        val itemBtnFavorite: ImageButton = view.findViewById<ImageButton>(R.id.btnSelFavorite)
-        val itemBtnWatched: ImageButton = view.findViewById<ImageButton>(R.id.btnSelWatched)
+        val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
+        val itemIvMovie = view.findViewById<ImageView>(R.id.ivMovie)!!
+        val itemIvTitle = view.findViewById<TextView>(R.id.tvTitle)!!
+        val itemIvOriginalTitle = view.findViewById<TextView>(R.id.tvOriginalTitle)!!
+        val itemIvReleaseDate = view.findViewById<TextView>(R.id.tvReleaseDate)!!
+        val itemIvOverview = view.findViewById<TextView>(R.id.tvOverview)!!
+        val itemBtnFavorite = view.findViewById<ImageButton>(R.id.btnSelFavorite)!!
+        val itemBtnWatched = view.findViewById<ImageButton>(R.id.btnSelWatched)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

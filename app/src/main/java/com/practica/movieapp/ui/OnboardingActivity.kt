@@ -10,15 +10,11 @@ import com.practica.movieapp.R
 import com.practica.movieapp.data.RemoteDataRetriever
 import com.practica.movieapp.ui.actors.ActorsActivity
 import com.practica.movieapp.ui.genres.GenresActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.properties.Delegates
+import kotlinx.coroutines.*
 
 class OnboardingActivity : AppCompatActivity() {
-    private var btnActors by Delegates.notNull<Int>();
-    private var btnGenres by Delegates.notNull<Int>();
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     companion object {
         fun open(context: Context) {
@@ -35,10 +31,10 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(ioDispatcher).launch {
             val flag = RemoteDataRetriever.userPreferencesExist()
             if (flag) RemoteDataRetriever.updateMovies()
-            withContext(Dispatchers.Main) {
+            withContext(mainDispatcher) {
                 if (flag) {
                     MainActivity.open(this@OnboardingActivity)
                     finish()
@@ -48,8 +44,8 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun setClickListeners() {
-        val btnActors = findViewById<Button>(R.id.btnActors);
-        val btnGenres = findViewById<Button>(R.id.btnGenres);
+        val btnActors = findViewById<Button>(R.id.btnActors)
+        val btnGenres = findViewById<Button>(R.id.btnGenres)
 
         btnGenres.setOnClickListener {
             GenresActivity.open(this)

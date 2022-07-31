@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var _binding: ActivityMainBinding
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     companion object {
         fun open(context: Context) {

@@ -20,4 +20,10 @@ data class MovieWatched (
     @ColumnInfo(name = "is_watched")               var isWatched: Boolean
 ) : MovieBase() {
     override fun equals(other: Any?): Boolean = super.equals(other)
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + isWatched.hashCode()
+        return result
+    }
 }

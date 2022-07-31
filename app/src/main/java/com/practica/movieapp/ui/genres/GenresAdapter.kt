@@ -12,8 +12,8 @@ import com.practica.movieapp.data.genres.Genre
 
 class GenresAdapter(private val genresList: List<Genre>) : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemParent: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.itemParent)
-        val genreCheck: CheckBox = view.findViewById<CheckBox>(R.id.cbCheck)
+        val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
+        val genreCheck = view.findViewById<CheckBox>(R.id.cbCheck)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

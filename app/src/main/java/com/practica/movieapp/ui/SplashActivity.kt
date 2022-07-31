@@ -9,22 +9,23 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.practica.movieapp.R
 import com.practica.movieapp.data.RemoteDataRetriever
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import java.lang.Runnable
 import java.util.*
 
-private const val ARRAY_MAXSZ: Int = 9
-private const val ARRAY_RESNAME: String = "tv_splash_text_rand_"
-private const val ARRAY_RESDEF: String = "string"
-private const val SPLASH_TIMEOUT: Long = 1000L
+private const val ARRAY_MAX_SIZE: Int = 9
+private const val ARRAY_RES_NAME: String = "tv_splash_text_rand_"
+private const val ARRAY_RES_DEF: String = "string"
+private const val SPLASH_TIMEOUT: Long = 500L
 
 @SuppressLint("CustomSplashScreen")
 class LegacySplashActivity : AppCompatActivity() {
     private var handler: Handler? = null
     private var runnable: Runnable? = null
     private lateinit var randomStrings: Array<Int>
+
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.requestFeature(Window.FEATURE_NO_TITLE)
@@ -48,10 +49,10 @@ class LegacySplashActivity : AppCompatActivity() {
     }
 
     private fun openNextScreen() {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(ioDispatcher).launch {
             val flag = RemoteDataRetriever.userPreferencesExist()
             if (flag) RemoteDataRetriever.updateMovies()
-            withContext(Dispatchers.Main) {
+            withContext(mainDispatcher) {
                 when (flag) {
                     true -> MainActivity.open(this@LegacySplashActivity)
                     else -> OnboardingActivity.open(this@LegacySplashActivity)
@@ -80,16 +81,16 @@ class LegacySplashActivity : AppCompatActivity() {
     }
 
     private fun loadRandomStringsArray() {
-        randomStrings = Array(ARRAY_MAXSZ) { it }
-        for (i in 0 until ARRAY_MAXSZ) {
-            val resName: String = ARRAY_RESNAME + (i + 1).toString()
-            randomStrings[i] = resources.getIdentifier(resName, ARRAY_RESDEF, packageName)
+        randomStrings = Array(ARRAY_MAX_SIZE) { it }
+        for (i in 0 until ARRAY_MAX_SIZE) {
+            val resName: String = ARRAY_RES_NAME + (i + 1).toString()
+            randomStrings[i] = resources.getIdentifier(resName, ARRAY_RES_DEF, packageName)
         }
     }
 
     private fun setRandomString() {
         val tvSplashText = findViewById<TextView>(R.id.tvSplashText)
         val rand = Random(System.currentTimeMillis())
-        tvSplashText.text = getString(randomStrings[rand.nextInt(ARRAY_MAXSZ)])
+        tvSplashText.text = getString(randomStrings[rand.nextInt(ARRAY_MAX_SIZE)])
     }
 }

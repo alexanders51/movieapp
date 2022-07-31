@@ -1,7 +1,10 @@
 package com.practica.movieapp.data
 
 import android.content.Context
+import android.os.Build
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
@@ -37,8 +40,8 @@ object ImageDownloadManager : AppGlideModule() {
     private fun downloadImageWithPath(context: Context?, path: String?, iv: ImageView?, size: String) {
         if (path == null) {
             iv?.setImageResource(R.drawable.ic_no_image)
-            iv?.setColorFilter(context?.getColor(R.color.violet_300)!!)
-            iv?.setBackgroundColor(context?.getColor(R.color.violet_200_30a)!!)
+            iv?.setColorFilter(ContextCompat.getColor(context!!, R.color.violet_300))
+            iv?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.violet_200_30a))
         }
         else {
             Glide.with(context!!).load(imageBaseUrl + size + path).into(iv!!)

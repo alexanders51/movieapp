@@ -1,49 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="start"
+    android:orientation="vertical"
+    android:padding="@dimen/iv_onboarding_margin"
     android:theme="@style/Theme.MovieApp.SplashScreen">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/iv_splash_logo_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".40">
 
         <ImageView
             android:id="@+id/ivOnboardingLogo"
+            android:layout_width="@dimen/iv_onboarding_logo_width"
+            android:layout_height="@dimen/iv_onboarding_logo_height"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/iv_onboarding_logo_margin_bottom"
+            app:srcCompat="@drawable/ic_totem"
+            android:contentDescription="@string/iv_splash_logo_desc" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".35"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvWelcomeHeader"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/iv_splash_logo_height"
-            app:srcCompat="@drawable/ic_totem" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/iv_onboarding_head_margin_bottom"
+            android:fontFamily="@font/ao"
+            android:text="@string/welcome_onboarding"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge" />
+
+        <TextView
+            android:id="@+id/tvWelcomeDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/iv_onboarding_desc_margin_bottom"
+            android:text="@string/head_onboarding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <Button
+            <TextView
+                android:id="@+id/tvNumberOne"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:fontFamily="@font/ao"
+                android:text="@string/number_one"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnActors"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_actors" />
+                android:layout_weight=".7"
+                android:fontFamily="@font/ao"
+                android:text="@string/btn_actors"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:paddingTop="@dimen/onboarding_button_padding"
+                android:paddingBottom="@dimen/onboarding_button_padding"
+                app:backgroundTint="@color/magenta_500_30a"
+                app:rippleColor="@color/magenta_500"
+                app:shapeAppearance="@style/CornerCut" />
 
-            <Button
-                android:id="@+id/btnGenres"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_genres" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".3">
+
+                <ImageView
+                    android:id="@+id/ivCheckActors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleX="2"
+                    android:scaleY="2"
+                    android:translationX="-12dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_check"
+                    app:tint="?attr/colorPrimary"
+                    tools:visibility="visible"
+                    android:contentDescription="@string/actors_check_desc" />
+            </RelativeLayout>
+
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvNumberTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:fontFamily="@font/ao"
+                android:text="@string/number_two"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGenres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:fontFamily="@font/ao"
+                android:text="@string/btn_genres"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:paddingTop="@dimen/onboarding_button_padding"
+                android:paddingBottom="@dimen/onboarding_button_padding"
+                app:backgroundTint="@color/magenta_500_30a"
+                app:rippleColor="@color/magenta_500"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".3">
+
+                <ImageView
+                    android:id="@+id/ivCheckGenres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleX="2"
+                    android:scaleY="2"
+                    android:translationX="-12dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_check"
+                    app:tint="?attr/colorPrimary"
+                    tools:visibility="visible"
+                    android:contentDescription="@string/genres_check_desc" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabOnboardingNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:clickable="false"
+        app:srcCompat="@drawable/ic_forward"
+        android:focusable="false"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:contentDescription="@string/fab_onboarding_desc" />
+
+</LinearLayout>

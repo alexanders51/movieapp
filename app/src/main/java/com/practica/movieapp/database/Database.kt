@@ -8,11 +8,7 @@ import com.practica.movieapp.data.actors.db.ActorDao
 import com.practica.movieapp.data.genres.Genre
 import com.practica.movieapp.data.genres.db.GenreDao
 import com.practica.movieapp.data.movies.Movie
-import com.practica.movieapp.data.movies.MovieFavorite
-import com.practica.movieapp.data.movies.MovieWatched
 import com.practica.movieapp.data.movies.db.MovieDao
-import com.practica.movieapp.data.movies.db.MovieFavoriteDao
-import com.practica.movieapp.data.movies.db.MovieWatchedDao
 
 class Database private constructor() {
     companion object {
@@ -20,7 +16,7 @@ class Database private constructor() {
     }
 
     @androidx.room.Database(
-        entities = [Actor::class, Genre::class, Movie::class, MovieFavorite::class, MovieWatched::class],
+        entities = [Actor::class, Genre::class, Movie::class],
         exportSchema = false,
         version = 2
     )
@@ -28,8 +24,6 @@ class Database private constructor() {
         abstract fun actorDao(): ActorDao
         abstract fun genreDao(): GenreDao
         abstract fun movieDao(): MovieDao
-        abstract fun movieFavoriteDao(): MovieFavoriteDao
-        abstract fun movieWatchedDao(): MovieWatchedDao
     }
 
     lateinit var movieAppDb: MovieAppDatabase private set

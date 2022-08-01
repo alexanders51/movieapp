@@ -17,6 +17,9 @@ class WatchedMoviesAdapter(
     private val moviesList: ArrayList<Movie>
 ) : RecyclerView.Adapter<WatchedMoviesAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var favorite: Boolean = false
+        var watched: Boolean = false
+
         val itemIvMovie = view.findViewById<ImageView>(R.id.ivMovie)!!
         val itemIvTitle = view.findViewById<TextView>(R.id.tvTitle)!!
         val itemIvOriginalTitle = view.findViewById<TextView>(R.id.tvOriginalTitle)!!
@@ -26,7 +29,6 @@ class WatchedMoviesAdapter(
     }
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
     private val moviesRep: MoviesRepository = MoviesRepository.instance
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,8 +48,27 @@ class WatchedMoviesAdapter(
         holder.itemIvOverview.text = movie.overview
         holder.itemIvReleaseDate.text = movie.releaseDate
 
+        holder.favorite = moviesList[position].isFavorite
+        holder.watched = moviesList[position].isWatched
+
         holder.itemBtnDelete.setOnClickListener {
-            // TODO: delete item logic
+            updateItem(moviesList[position])
+            moviesList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, moviesList.size)
+        }
+    }
+
+    private fun updateItem(movie: Movie) {
+        CoroutineScope(ioDispatcher).launch {
+            val saved = ArrayList(moviesRep.getAllLocalMovies())
+            val idx = saved.indexOf(movie)
+            if (idx != -1) saved[idx].isWatched = !saved[idx].isWatched
+            if (!saved[idx].isFavorite && !saved[idx].isWatched) {
+                moviesRep.deleteLocal(saved[idx])
+                saved.removeAt(idx)
+            }
+            moviesRep.replaceAllLocal(saved.toList())
         }
     }
 

@@ -9,12 +9,33 @@ import androidx.room.PrimaryKey
 data class Movie (
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id")              override var id: Int,
-    @ColumnInfo(name = "original_title")  override var originalTitle: String,
-    @ColumnInfo(name = "title")           override var title: String,
-    @ColumnInfo(name = "overview")        override var overview: String,
-    @ColumnInfo(name = "release_date")    override var releaseDate: String?,
-    @ColumnInfo(name = "adult")           override var adult: Boolean,
-    @ColumnInfo(name = "poster_path")     override var posterPath: String?,
-    @ColumnInfo(name = "backdrop_path")   override var backdropPath: String?,
-) : MovieBase()
+    @ColumnInfo(name = "id")              var id: Int,
+    @ColumnInfo(name = "original_title")  var originalTitle: String,
+    @ColumnInfo(name = "title")           var title: String,
+    @ColumnInfo(name = "overview")        var overview: String,
+    @ColumnInfo(name = "release_date")    var releaseDate: String?,
+    @ColumnInfo(name = "adult")           var adult: Boolean,
+    @ColumnInfo(name = "poster_path")     var posterPath: String?,
+    @ColumnInfo(name = "backdrop_path")   var backdropPath: String?,
+    @ColumnInfo(name = "is_favorite")     var isFavorite: Boolean,
+    @ColumnInfo(name = "is_watched")      var isWatched: Boolean,
+) {
+    override fun equals(other: Any?): Boolean =
+        (other is Movie) && id == other.id && originalTitle == other.originalTitle &&
+                title == other.title && overview == other.overview && releaseDate == other.releaseDate &&
+                adult == other.adult && posterPath == other.posterPath && backdropPath == other.backdropPath
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + originalTitle.hashCode()
+        result = 31 * result + title.hashCode()
+        result = 31 * result + overview.hashCode()
+        result = 31 * result + (releaseDate?.hashCode() ?: 0)
+        result = 31 * result + adult.hashCode()
+        result = 31 * result + (posterPath?.hashCode() ?: 0)
+        result = 31 * result + (backdropPath?.hashCode() ?: 0)
+        result = 31 * result + isFavorite.hashCode()
+        result = 31 * result + isWatched.hashCode()
+        return result
+    }
+}

@@ -10,16 +10,12 @@ import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
 import kotlinx.coroutines.*
 
-class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
-    private var favoriteMovies : List<Movie> = emptyList()
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
-
-    private lateinit var adapter: FavoriteMoviesAdapter
+class FavoriteFragment(
+    private var movies: ArrayList<Movie>
+) : Fragment(R.layout.fragment_favorite) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: initialize list of movies
         setupRecyclerView(view)
     }
 
@@ -31,7 +27,8 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         llm.reverseLayout = false
 
         rv.layoutManager = llm
-        adapter = FavoriteMoviesAdapter(ArrayList(favoriteMovies))
-        rv.adapter = adapter
+        rv.adapter = FavoriteMoviesAdapter(ArrayList(getFavorite()))
     }
+
+    private fun getFavorite() = movies.filter { it.isFavorite }
 }

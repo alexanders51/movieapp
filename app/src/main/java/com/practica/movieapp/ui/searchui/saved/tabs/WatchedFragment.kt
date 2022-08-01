@@ -10,15 +10,12 @@ import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
 import kotlinx.coroutines.*
 
-class WatchedFragment : Fragment(R.layout.fragment_watched) {
-    private var movies : List<Movie> = emptyList()
-
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
+class WatchedFragment(
+    private var movies: ArrayList<Movie>
+) : Fragment(R.layout.fragment_watched) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: initialize list of movies
         setupRecyclerView(view)
     }
 
@@ -30,6 +27,8 @@ class WatchedFragment : Fragment(R.layout.fragment_watched) {
         llm.reverseLayout = false
 
         rv.layoutManager = llm
-        rv.adapter = WatchedMoviesAdapter(ArrayList(movies))
+        rv.adapter = WatchedMoviesAdapter(ArrayList(getWatched()))
     }
+
+    private fun getWatched() = movies.filter { it.isWatched }
 }

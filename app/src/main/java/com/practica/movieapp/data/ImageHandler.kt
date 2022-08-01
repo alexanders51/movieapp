@@ -23,7 +23,6 @@ object ImageHandler {
         }
     }
 
-
     fun downloadH632ImageWithPath(context: Context, path: String?, iv: ImageView) = downloadImageWithPath(context, path, iv, imageProfileSizes[2])
 
     private fun retrieveConfiguration() {

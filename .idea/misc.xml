@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/layout/content_search_screen.xml" value="0.348731884057971" />
         <entry key="app/src/main/res/layout/content_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_corason.xml" value="0.348731884057971" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.348731884057971" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.348731884057971" />
         <entry key="app/src/main/res/layout/fragment_saved.xml" value="0.1431159420289855" />
@@ -52,7 +53,11 @@
         <entry key="app/src/main/res/layout/fragment_tabbed.xml" value="0.348731884057971" />
         <entry key="app/src/main/res/layout/fragment_tabbed_main.xml" value="0.184375" />
         <entry key="app/src/main/res/layout/fragment_tabbed_placeholder.xml" value="0.348731884057971" />
+        <entry key="app/src/main/res/layout/fragment_watched.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/item_genre.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/movie_item_list.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/movie_item_list_favorite.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/movie_item_list_watched.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.184375" />
         <entry key="app/src/main/res/layout/nav_header_search_screen.xml" value="0.348731884057971" />
         <entry key="app/src/main/res/layout/rv_item_list.xml" value="0.3578125" />

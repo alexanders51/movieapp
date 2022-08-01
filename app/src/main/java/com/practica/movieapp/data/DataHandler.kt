@@ -5,8 +5,6 @@ import com.practica.movieapp.data.actors.get.ActorRepository
 import com.practica.movieapp.data.genres.Genre
 import com.practica.movieapp.data.genres.get.GenreRepository
 import com.practica.movieapp.data.movies.Movie
-import com.practica.movieapp.data.movies.MovieFavorite
-import com.practica.movieapp.data.movies.MovieWatched
 import com.practica.movieapp.data.movies.get.MoviesRepository
 import kotlinx.coroutines.*
 
@@ -15,11 +13,11 @@ object DataHandler {
 
     private var genres: List<Genre> = emptyList()
     private var actors: List<Actor> = emptyList()
+    private var movies: List<Movie> = emptyList()
+
     private var genresLocal: List<Genre> = emptyList()
     private var actorsLocal: List<Actor> = emptyList()
-    private var movies: List<Movie> = emptyList()
-    private var moviesFavorite: List<MovieFavorite> = emptyList()
-    private var moviesWatched: List<MovieWatched> = emptyList()
+    private var moviesLocal: List<Movie> = emptyList()
 
     private var actorRep = ActorRepository.instance
     private var genreRep = GenreRepository.instance
@@ -42,23 +40,23 @@ object DataHandler {
         val actorIds = actorRep.getAllLocalActors().map { it.id }
 
         movies = movieRep.getAllRemoteMovies(ACTOR_PAGE_NR, actorIds.toTypedArray(), genreIds.toTypedArray())
-        moviesFavorite = movieRep.getAllLocalFavoriteMovies()
-        moviesWatched = movieRep.getAllLocalWatchedMovies()
     }
 
     fun updateLocal() {
         genresLocal = genreRep.getAllLocalGenres()
         actorsLocal = actorRep.getAllLocalActors()
+        moviesLocal = movieRep.getAllLocalMovies()
     }
 
     fun getPreloadedGenres() = genres
     fun getPreloadedActors() = actors
+    fun getPreloadedMovies() = movies
+
     fun getLocalGenres() = genresLocal
     fun getLocalActors() = actorsLocal
+    fun getLocalMovies() = moviesLocal
 
-    fun getPreloadedMovies() = movies
-    fun getPreloadedMoviesFavorite() = moviesFavorite
-    fun getPreloadedMoviesWatched() = moviesWatched
+    fun queryMovies(query: String): List<Movie> = movieRep.queryMovies(ACTOR_PAGE_NR, query)
 
     fun userPreferencesExist() =
         (actorRep.getCount() != 0) && (genreRep.getCount() != 0)

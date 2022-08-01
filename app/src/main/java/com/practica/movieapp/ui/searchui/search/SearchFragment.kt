@@ -78,26 +78,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun getRemoteMovies() {
         DataHandler.updateMovies()
         DataHandler.updateLocal()
-
         movies = DataHandler.getPreloadedMovies()
-        updateBooleanFieldsOnMovieList()
+        preselectItems()
     }
 
     private fun getRemoteMoviesWithQuery(query: String) {
         DataHandler.updateLocal()
-
         movies = DataHandler.queryMovies(query)
-        updateBooleanFieldsOnMovieList()
+        preselectItems()
     }
 
-    private fun updateBooleanFieldsOnMovieList() {
-        val localMovies = DataHandler.getLocalMovies()
+    private fun preselectItems() {
+        val saved = DataHandler.getLocalMovies()
         movies.forEach {
-            if (localMovies.contains(it)) {
-                val found = localMovies.indexOf(it)
-                it.isFavorite = localMovies[found].isFavorite
-                it.isWatched = localMovies[found].isWatched
-            }
+            val idx = saved.indexOf(it)
+            it.isFavorite = (idx != -1) && saved[idx].isFavorite
+            it.isWatched = (idx != -1) && saved[idx].isWatched
         }
     }
 }

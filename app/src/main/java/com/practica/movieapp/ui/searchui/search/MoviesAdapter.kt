@@ -29,7 +29,6 @@ class MoviesAdapter(
         val itemBtnWatched = view.findViewById<ImageButton>(R.id.btnSelWatched)!!
     }
 
-    // TODO: to be deleted in case of uselessness
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val moviesRep: MoviesRepository = MoviesRepository.instance
 
@@ -60,14 +59,14 @@ class MoviesAdapter(
             holder.favorite = !holder.favorite
             moviesList[position].isFavorite = holder.favorite
             updateFavoriteButton(holder)
-            // TODO: add to favorites
+            updateDatabase()
         }
 
         holder.itemBtnWatched.setOnClickListener {
             holder.watched = !holder.watched
             moviesList[position].isWatched = holder.watched
             updateWatchedButton(holder)
-            // TODO: add to watched
+            updateDatabase()
         }
     }
 
@@ -83,6 +82,14 @@ class MoviesAdapter(
             true -> R.drawable.ic_saved_fill
             else -> R.drawable.ic_saved_border
         })
+    }
+
+    private fun filterWithFlags() = moviesList.filter { it.isFavorite || it.isWatched }
+
+    private fun updateDatabase() {
+        CoroutineScope(ioDispatcher).launch {
+            moviesRep.replaceAllLocal(filterWithFlags())
+        }
     }
 
     override fun getItemCount(): Int = moviesList.size

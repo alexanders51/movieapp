@@ -8,7 +8,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.practica.movieapp.R
 import com.practica.movieapp.ui.searchui.saved.tabs.AdapterTabPager
-import com.practica.movieapp.ui.searchui.saved.tabs.PlaceholderFragment
+import com.practica.movieapp.ui.searchui.saved.tabs.FavoriteFragment
+import com.practica.movieapp.ui.searchui.saved.tabs.WatchedFragment
 
 
 class SavedFragment : Fragment(R.layout.fragment_saved) {
@@ -24,9 +25,8 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         val viewPager = view.findViewById<ViewPager2>(R.id.ftViewPager)
         val tabs: TabLayout = view.findViewById(R.id.ftTabs)
 
-        for (i in tabTitles.indices) {
-            adapter?.addFragment(PlaceholderFragment.newInstance(i + 1), getString(tabTitles[i]))
-        }
+        adapter?.addFragment(FavoriteFragment(), getString(tabTitles[0]))
+        adapter?.addFragment(WatchedFragment(), getString(tabTitles[1]))
 
         viewPager.adapter = adapter!!
         viewPager.currentItem = 0

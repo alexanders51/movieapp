@@ -14,8 +14,9 @@ import com.practica.movieapp.data.movies.get.MoviesRepository
 import kotlinx.coroutines.*
 
 class MoviesAdapter(
-    private val moviesList: List<Movie>
+    private val moviesList: List<Movie>,
 ) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>(){
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var favorite: Boolean = false
         var watched: Boolean = false
@@ -59,14 +60,14 @@ class MoviesAdapter(
             holder.favorite = !holder.favorite
             moviesList[position].isFavorite = holder.favorite
             updateFavoriteButton(holder)
-            updateDatabase()
+            updateDatabase(moviesList[position])
         }
 
         holder.itemBtnWatched.setOnClickListener {
             holder.watched = !holder.watched
             moviesList[position].isWatched = holder.watched
             updateWatchedButton(holder)
-            updateDatabase()
+            updateDatabase(moviesList[position])
         }
     }
 
@@ -86,9 +87,14 @@ class MoviesAdapter(
 
     private fun filterWithFlags() = moviesList.filter { it.isFavorite || it.isWatched }
 
-    private fun updateDatabase() {
+    private fun updateDatabase(item: Movie) {
         CoroutineScope(ioDispatcher).launch {
-            moviesRep.replaceAllLocal(filterWithFlags())
+            val saved = ArrayList<Movie>(moviesRep.getAllLocalMovies())
+            val filtered = ArrayList<Movie>(filterWithFlags())
+
+            saved.remove(item)
+
+            moviesRep.replaceAllLocal(saved.union(filtered).toList())
         }
     }
 

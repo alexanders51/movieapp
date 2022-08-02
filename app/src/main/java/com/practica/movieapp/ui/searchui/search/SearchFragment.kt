@@ -14,6 +14,7 @@ import java.net.URLEncoder
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private var movies : List<Movie> = emptyList()
+
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 

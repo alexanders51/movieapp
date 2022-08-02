@@ -34,8 +34,6 @@ data class Movie (
         result = 31 * result + adult.hashCode()
         result = 31 * result + (posterPath?.hashCode() ?: 0)
         result = 31 * result + (backdropPath?.hashCode() ?: 0)
-        result = 31 * result + isFavorite.hashCode()
-        result = 31 * result + isWatched.hashCode()
         return result
     }
 }

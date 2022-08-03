@@ -16,6 +16,7 @@ object ImageHandler {
 
     private lateinit var imageBaseUrl: String
     private lateinit var imageProfileSizes: List<String>
+    private lateinit var imageBackdropSizes: List<String>
 
     fun initialize() {
         CoroutineScope(ioDispatcher).launch {
@@ -24,11 +25,13 @@ object ImageHandler {
     }
 
     fun downloadH632ImageWithPath(context: Context, path: String?, iv: ImageView) = downloadImageWithPath(context, path, iv, imageProfileSizes[2])
+    fun downloadW1280ImageWithPath(context: Context, path: String?, iv: ImageView) = downloadImageWithPath(context, path, iv, imageBackdropSizes[2])
 
     private fun retrieveConfiguration() {
         configurationImagesResponse = configurationRetriever.getConfig().images
         imageBaseUrl = configurationImagesResponse.secureBaseUrl
         imageProfileSizes = configurationImagesResponse.profileSizes
+        imageBackdropSizes = configurationImagesResponse.backdropSizes
     }
 
     private fun downloadImageWithPath(context: Context, path: String?, iv: ImageView, size: String) {

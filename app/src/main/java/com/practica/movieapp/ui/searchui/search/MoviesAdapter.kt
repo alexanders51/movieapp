@@ -6,21 +6,26 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
 import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.movies.Movie
 import com.practica.movieapp.data.movies.get.MoviesRepository
+import com.practica.movieapp.ui.searchui.details.DetailsViewModel
 import kotlinx.coroutines.*
 
 class MoviesAdapter(
     private val moviesList: List<Movie>,
+    private val detailsCallback: (() -> Unit)?,
+    private val viewModel: DetailsViewModel
 ) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var favorite: Boolean = false
         var watched: Boolean = false
 
+        val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
         val itemIvMovie = view.findViewById<ImageView>(R.id.ivMovie)!!
         val itemIvTitle = view.findViewById<TextView>(R.id.tvTitle)!!
         val itemIvOriginalTitle = view.findViewById<TextView>(R.id.tvOriginalTitle)!!
@@ -55,6 +60,11 @@ class MoviesAdapter(
 
         updateFavoriteButton(holder)
         updateWatchedButton(holder)
+
+        holder.itemParent.setOnClickListener {
+            viewModel.setCurrentMovie(movie)
+            detailsCallback?.invoke()
+        }
 
         holder.itemBtnFavorite.setOnClickListener {
             holder.favorite = !holder.favorite

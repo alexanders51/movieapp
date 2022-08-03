@@ -1,27 +1,49 @@
 package com.practica.movieapp.ui.searchui.search
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
 import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
+import com.practica.movieapp.ui.searchui.details.DetailsViewModel
 import kotlinx.coroutines.*
 import java.net.URLEncoder
 
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment : Fragment() {
     private var movies : List<Movie> = emptyList()
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
     private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var navController: NavController
+
+    private lateinit var viewModel: DetailsViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_search, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[DetailsViewModel::class.java]
+
+        navController = findNavController()
 
         updateMovies(view)
         setupListeners(view)
@@ -31,7 +53,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val llm = LinearLayoutManager(view.context)
         val rv = view.findViewById<RecyclerView>(R.id.rvMovieItems)
 
-        moviesAdapter = MoviesAdapter(movies)
+        moviesAdapter = MoviesAdapter(movies, {
+            navigateToSpecifiedDestination(R.id.navDetails)
+        }, viewModel)
 
         llm.orientation = LinearLayoutManager.VERTICAL
         llm.reverseLayout = false
@@ -96,5 +120,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             it.isFavorite = (idx != -1) && saved[idx].isFavorite
             it.isWatched = (idx != -1) && saved[idx].isWatched
         }
+    }
+
+    private fun navigateToSpecifiedDestination(@IdRes destination: Int) {
+        navController.navigate(destination)
     }
 }

@@ -16,4 +16,10 @@
         android:name="com.practica.movieapp.ui.searchui.saved.SavedFragment"
         android:label="@string/menu_saved"
         tools:layout="@layout/fragment_saved" />
+
+    <fragment
+        android:id="@+id/navDetails"
+        android:name="com.practica.movieapp.ui.searchui.details.DetailsFragment"
+        android:label="@string/menu_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>

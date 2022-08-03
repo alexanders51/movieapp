@@ -87,8 +87,7 @@ class OnboardingActivity : AppCompatActivity() {
             btn.setBackgroundColor(ContextCompat.getColor(this, R.color.magenta_300))
             btn.setTextColor(ContextCompat.getColor(this, R.color.black))
             iv.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             btn.setBackgroundColor(ContextCompat.getColor(this, R.color.magenta_500_30a))
             btn.setTextColor(ContextCompat.getColor(this, R.color.white))
             iv.visibility = View.INVISIBLE
@@ -104,8 +103,8 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun fetchLocalData() {
-        val selActors = DataHandler.getLocalActors().filter { it.isSelected }.map{ it.name }
-        val selGenres = DataHandler.getLocalGenres().filter { it.isSelected }.map{ it.name }
+        val selActors = DataHandler.getLocalActors().filter { it.isSelected }.map { it.name }
+        val selGenres = DataHandler.getLocalGenres().filter { it.isSelected }.map { it.name }
 
         actorsRet = ActorsReturnData(selActors.size, selActors.toTypedArray())
         genresRet = GenresReturnData(selGenres.size, selGenres.toTypedArray())

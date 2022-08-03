@@ -8,11 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
-import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.movies.Movie
 import com.practica.movieapp.data.movies.get.MoviesRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FavoriteMoviesAdapter(
     private val moviesList: ArrayList<Movie>
@@ -42,7 +44,11 @@ class FavoriteMoviesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = moviesList[position]
 
-        ImageHandler.downloadH632ImageWithPath(holder.itemIvMovie.context, movie.posterPath, holder.itemIvMovie)
+        ImageHandler.downloadH632ImageWithPath(
+            holder.itemIvMovie.context,
+            movie.posterPath,
+            holder.itemIvMovie
+        )
 
         holder.itemIvTitle.text = movie.title
         holder.itemIvOriginalTitle.text = movie.originalTitle

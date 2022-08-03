@@ -12,7 +12,6 @@ import com.practica.movieapp.R
 import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.genres.Genre
 import com.practica.movieapp.data.genres.get.GenreRepository
-import com.practica.movieapp.ui.actors.ActorsAdapter
 import kotlinx.coroutines.*
 
 class GenresActivity : AppCompatActivity() {
@@ -36,7 +35,7 @@ class GenresActivity : AppCompatActivity() {
     private fun getGenres() {
         CoroutineScope(ioDispatcher).launch {
             genres = DataHandler.getPreloadedGenres()
-            withContext(mainDispatcher){
+            withContext(mainDispatcher) {
                 preselectItems()
             }
         }
@@ -66,7 +65,7 @@ class GenresActivity : AppCompatActivity() {
         CoroutineScope(ioDispatcher).launch {
             genreRepository.replaceAllLocal(filterSelected())
             DataHandler.updateMovies()
-            withContext(mainDispatcher){
+            withContext(mainDispatcher) {
                 val selected = genres.filter { it.isSelected }.map { it.name }
                 val returnData = GenresReturnData(selected.size, selected.toTypedArray())
                 val intent = Intent()
@@ -80,7 +79,7 @@ class GenresActivity : AppCompatActivity() {
     private fun preselectItems() {
         CoroutineScope(ioDispatcher).launch {
             val saved = genreRepository.getAllLocalGenres()
-            withContext(mainDispatcher){
+            withContext(mainDispatcher) {
                 genres.forEach { genre -> genre.isSelected = saved.contains(genre) }
                 setupRecyclerView()
             }

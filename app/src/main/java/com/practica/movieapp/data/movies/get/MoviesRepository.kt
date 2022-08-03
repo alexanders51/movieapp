@@ -12,7 +12,9 @@ class MoviesRepository private constructor() {
     private val moviesRds = MoviesRemoteDataSource(ApiClient.instance.retrofit!!)
     private val moviesLds = MoviesLocalDataSource(Database.instance)
 
-    fun getAllRemoteMovies(page: Int, actorIds: Array<Int>, genreIds: Array<Int>) = moviesRds.retrieveDiscovery(page, actorIds, genreIds)
+    fun getAllRemoteMovies(page: Int, actorIds: Array<Int>, genreIds: Array<Int>) =
+        moviesRds.retrieveDiscovery(page, actorIds, genreIds)
+
     fun queryMovies(page: Int, query: String) = moviesRds.retrieveSearch(page, query)
 
     fun getAllLocalMovies() = moviesLds.getAll()

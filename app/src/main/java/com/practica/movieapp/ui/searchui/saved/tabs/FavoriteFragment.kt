@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
-import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
-import kotlinx.coroutines.*
 
 class FavoriteFragment(
     private var movies: ArrayList<Movie>

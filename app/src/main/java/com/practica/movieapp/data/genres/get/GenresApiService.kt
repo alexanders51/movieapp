@@ -10,5 +10,5 @@ interface GenresApiService {
     fun getGenres(
         @Query("api_key") apiKey: String,
         @Query("language") lang: String
-    ) : Call<GenresListResponse>
+    ): Call<GenresListResponse>
 }

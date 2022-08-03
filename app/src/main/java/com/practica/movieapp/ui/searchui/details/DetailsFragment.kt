@@ -23,7 +23,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         rv.layoutManager = llm
 
         val model = ViewModelProvider(requireActivity())[DetailsViewModel::class.java]
-        model.getCurrentMovie().observe(viewLifecycleOwner) { it?.let {
+        model.getCurrentMovie().observe(viewLifecycleOwner) {
+            it?.let {
                 val image = view.findViewById<ImageView>(R.id.ivDetailsHeader)
                 ImageHandler.downloadW1280ImageWithPath(image.context, it.backdropPath, image)
                 rv.adapter = DetailsAdapter(it)

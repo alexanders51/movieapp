@@ -22,7 +22,7 @@ class ApiClient private constructor() {
             .build()
     }
 
-    var retrofit : Retrofit? = Retrofit.Builder()
+    var retrofit: Retrofit? = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)

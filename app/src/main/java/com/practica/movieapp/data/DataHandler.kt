@@ -6,7 +6,10 @@ import com.practica.movieapp.data.genres.Genre
 import com.practica.movieapp.data.genres.get.GenreRepository
 import com.practica.movieapp.data.movies.Movie
 import com.practica.movieapp.data.movies.get.MoviesRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 object DataHandler {
     const val ACTOR_PAGE_NR = 1
@@ -39,7 +42,11 @@ object DataHandler {
         val genreIds = genreRep.getAllLocalGenres().map { it.id }
         val actorIds = actorRep.getAllLocalActors().map { it.id }
 
-        movies = movieRep.getAllRemoteMovies(ACTOR_PAGE_NR, actorIds.toTypedArray(), genreIds.toTypedArray())
+        movies = movieRep.getAllRemoteMovies(
+            ACTOR_PAGE_NR,
+            actorIds.toTypedArray(),
+            genreIds.toTypedArray()
+        )
     }
 
     fun updateLocal() {

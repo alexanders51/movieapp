@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
 import com.practica.movieapp.data.genres.Genre
 
-class GenresAdapter(private val genresList: List<Genre>) : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
+class GenresAdapter(private val genresList: List<Genre>) :
+    RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
         val genreCheck = view.findViewById<CheckBox>(R.id.cbCheck)!!

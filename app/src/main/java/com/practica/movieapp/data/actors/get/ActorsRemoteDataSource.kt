@@ -12,8 +12,8 @@ class ActorsRemoteDataSource(retrofit: Retrofit) {
 
     fun getActors(page: Int): List<Actor> {
         return apiService.getActors(Constants.API_KEY, Constants.LANGUAGE, page.toString())
-                .executeAndDeliver()
-                .results
-                .map { actorMapper.map(it) }
+            .executeAndDeliver()
+            .results
+            .map { actorMapper.map(it) }
     }
 }

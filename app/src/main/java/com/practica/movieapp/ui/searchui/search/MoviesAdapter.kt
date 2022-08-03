@@ -13,13 +13,16 @@ import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.movies.Movie
 import com.practica.movieapp.data.movies.get.MoviesRepository
 import com.practica.movieapp.ui.searchui.details.DetailsViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MoviesAdapter(
     private val moviesList: List<Movie>,
     private val detailsCallback: (() -> Unit)?,
     private val viewModel: DetailsViewModel
-) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>(){
+) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var favorite: Boolean = false
@@ -48,7 +51,11 @@ class MoviesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = moviesList[position]
 
-        ImageHandler.downloadH632ImageWithPath(holder.itemIvMovie.context, movie.posterPath, holder.itemIvMovie)
+        ImageHandler.downloadH632ImageWithPath(
+            holder.itemIvMovie.context,
+            movie.posterPath,
+            holder.itemIvMovie
+        )
 
         holder.itemIvTitle.text = movie.title
         holder.itemIvOriginalTitle.text = movie.originalTitle
@@ -82,17 +89,21 @@ class MoviesAdapter(
     }
 
     private fun updateFavoriteButton(holder: ViewHolder) {
-        holder.itemBtnFavorite.setImageResource(when(holder.favorite) {
-            true -> R.drawable.ic_corason_fill
-            else -> R.drawable.ic_corason_border
-        })
+        holder.itemBtnFavorite.setImageResource(
+            when (holder.favorite) {
+                true -> R.drawable.ic_corason_fill
+                else -> R.drawable.ic_corason_border
+            }
+        )
     }
 
     private fun updateWatchedButton(holder: ViewHolder) {
-        holder.itemBtnWatched.setImageResource(when(holder.watched) {
-            true -> R.drawable.ic_saved_fill
-            else -> R.drawable.ic_saved_border
-        })
+        holder.itemBtnWatched.setImageResource(
+            when (holder.watched) {
+                true -> R.drawable.ic_saved_fill
+                else -> R.drawable.ic_saved_border
+            }
+        )
     }
 
     private fun filterWithFlags() = moviesList.filter { it.isFavorite || it.isWatched }

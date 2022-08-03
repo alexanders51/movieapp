@@ -9,7 +9,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.practica.movieapp.R
 import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
-import com.practica.movieapp.ui.searchui.saved.tabs.*
+import com.practica.movieapp.ui.searchui.saved.tabs.AdapterTabPager
+import com.practica.movieapp.ui.searchui.saved.tabs.FavoriteFragment
+import com.practica.movieapp.ui.searchui.saved.tabs.WatchedFragment
 import kotlinx.coroutines.*
 
 

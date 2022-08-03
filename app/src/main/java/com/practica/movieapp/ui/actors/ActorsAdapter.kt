@@ -12,7 +12,8 @@ import com.practica.movieapp.R
 import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.actors.Actor
 
-class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<ActorsAdapter.ViewHolder>() {
+class ActorsAdapter(private val actorsList: List<Actor>) :
+    RecyclerView.Adapter<ActorsAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
         val itemName = view.findViewById<TextView>(R.id.tvName)!!
@@ -30,7 +31,11 @@ class ActorsAdapter(private val actorsList: List<Actor>) : RecyclerView.Adapter<
         val actor = actorsList[position]
         holder.itemName.text = actor.name
 
-        ImageHandler.downloadH632ImageWithPath(holder.itemImage.context, actor.profilePath, holder.itemImage)
+        ImageHandler.downloadH632ImageWithPath(
+            holder.itemImage.context,
+            actor.profilePath,
+            holder.itemImage
+        )
 
         setItemSelection(holder, actor, position)
 

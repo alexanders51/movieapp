@@ -5,7 +5,9 @@ import com.practica.movieapp.utils.Constants
 import retrofit2.Retrofit
 
 class ConfigurationRetriever(retrofit: Retrofit) {
-    private val configApiService: ConfigurationApiService = retrofit.create(ConfigurationApiService::class.java)
+    private val configApiService: ConfigurationApiService =
+        retrofit.create(ConfigurationApiService::class.java)
 
-    fun getConfig(): ConfigurationResponse = configApiService.getActors(Constants.API_KEY).executeAndDeliver()
+    fun getConfig(): ConfigurationResponse =
+        configApiService.getActors(Constants.API_KEY).executeAndDeliver()
 }

@@ -15,7 +15,7 @@ import com.practica.movieapp.data.actors.get.ActorRepository
 import kotlinx.coroutines.*
 
 class ActorsActivity : AppCompatActivity() {
-    private var actors : List<Actor> = emptyList()
+    private var actors: List<Actor> = emptyList()
     private var actorRepository = ActorRepository.instance
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main

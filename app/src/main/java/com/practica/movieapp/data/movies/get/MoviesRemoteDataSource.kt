@@ -10,18 +10,28 @@ class MoviesRemoteDataSource(retrofit: Retrofit) {
     private val apiService: MoviesApiService = retrofit.create(MoviesApiService::class.java)
     private val movieMapper: MovieMapper = MovieMapper()
 
-    fun retrieveDiscovery(page: Int, actorIds: Array<Int>, genreIds: Array<Int>) : List<Movie> {
+    fun retrieveDiscovery(page: Int, actorIds: Array<Int>, genreIds: Array<Int>): List<Movie> {
         val withCastStr = actorIds.joinToString(separator = "|") { i -> i.toString() }
         val withGenresStr = genreIds.joinToString(separator = "|") { i -> i.toString() }
-        return apiService.getMoviesFromDiscoveryApi(Constants.API_KEY, Constants.LANGUAGE, page.toString(), withCastStr, withGenresStr)
+        return apiService.getMoviesFromDiscoveryApi(
+            Constants.API_KEY,
+            Constants.LANGUAGE,
+            page.toString(),
+            withCastStr,
+            withGenresStr
+        )
             .executeAndDeliver()
             .results
             .map { movieMapper.map(it) }
     }
 
-    fun retrieveSearch(page: Int, query: String)
-        = apiService.getMoviesFromSearchApi(Constants.API_KEY, Constants.LANGUAGE, page.toString(), query)
-            .executeAndDeliver()
-            .results
-            .map { movieMapper.map(it) }
+    fun retrieveSearch(page: Int, query: String) = apiService.getMoviesFromSearchApi(
+        Constants.API_KEY,
+        Constants.LANGUAGE,
+        page.toString(),
+        query
+    )
+        .executeAndDeliver()
+        .results
+        .map { movieMapper.map(it) }
 }

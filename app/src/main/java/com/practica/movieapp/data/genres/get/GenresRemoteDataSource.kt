@@ -10,7 +10,7 @@ class GenresRemoteDataSource(retrofit: Retrofit) {
     private val apiService: GenresApiService = retrofit.create(GenresApiService::class.java)
     private val genreMapper: GenreMapper = GenreMapper()
 
-    fun getGenres() : List<Genre> {
+    fun getGenres(): List<Genre> {
         return apiService.getGenres(Constants.API_KEY, Constants.LANGUAGE)
             .executeAndDeliver()
             .genres

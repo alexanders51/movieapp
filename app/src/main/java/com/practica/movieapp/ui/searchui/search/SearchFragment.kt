@@ -20,7 +20,7 @@ import kotlinx.coroutines.*
 import java.net.URLEncoder
 
 class SearchFragment : Fragment() {
-    private var movies : List<Movie> = emptyList()
+    private var movies: List<Movie> = emptyList()
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
@@ -66,14 +66,17 @@ class SearchFragment : Fragment() {
 
     private fun setupListeners(view: View) {
         val svMovies = view.findViewById<SearchView>(R.id.svMovies)
-        svMovies.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        svMovies.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String?) = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 when (newText != null) {
                     true -> {
                         val encoded = URLEncoder.encode(newText, "utf-8")
-                        if (encoded.isNotEmpty()) updateMoviesWithQuery(view, encoded) else updateMovies(view)
+                        if (encoded.isNotEmpty()) updateMoviesWithQuery(
+                            view,
+                            encoded
+                        ) else updateMovies(view)
                     }
                     else -> updateMovies(view)
                 }

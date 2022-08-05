@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemParent"
+    android:id="@+id/cl_im_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/ll_im_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
@@ -19,12 +19,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivMovie"
+        app:layout_constraintStart_toEndOf="@+id/iv_im_poster"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tv_im_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -33,31 +33,33 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvOriginalTitle"
+            android:id="@+id/tv_im_original_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/tvReleaseDate"
+            android:id="@+id/tv_im_release_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/tvOverview"
+            android:id="@+id/tv_im_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:minHeight="64dp"
+            android:maxLines="6"
+            android:ellipsize="end"
             android:text="TextView"
             android:textColor="#B5B5B5"
             android:textSize="12sp" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ivMovie"
+        android:id="@+id/iv_im_poster"
         android:layout_width="160dp"
         android:layout_height="220dp"
         android:layout_marginStart="10dp"
@@ -86,20 +88,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/ivMovie"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+        app:layout_constraintStart_toEndOf="@id/iv_im_poster"
+        app:layout_constraintTop_toBottomOf="@id/ll_im_content">
 
         <ImageButton
-            android:id="@+id/btnSelFavorite"
+            android:id="@+id/btn_im_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/violet_200_30a"
-            app:srcCompat="@drawable/ic_corason_border"
+            app:srcCompat="@drawable/ic_heart_favorite_border"
             app:tint="?attr/colorPrimary" />
 
         <ImageButton
-            android:id="@+id/btnSelWatched"
+            android:id="@+id/btn_im_watched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

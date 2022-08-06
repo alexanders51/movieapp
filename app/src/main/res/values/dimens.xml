@@ -10,7 +10,7 @@
     <dimen name="iv_onboarding_head_margin_bottom">32dp</dimen>
     <dimen name="iv_onboarding_desc_margin_bottom">24dp</dimen>
     <dimen name="iv_onboarding_margin">20dp</dimen>
-    <dimen name="dimen_default_layout_padding">30dp</dimen>
+    <dimen name="dimen_default_layout_padding">64dp</dimen>
     <dimen name="dimen_title_text_size">34sp</dimen>
     <dimen name="ic_star_size">24dp</dimen>
     <dimen name="ic_star_margin">12dp</dimen>

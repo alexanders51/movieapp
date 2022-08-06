@@ -31,4 +31,10 @@ interface MovieDao {
         deleteAll()
         saveAll(movies)
     }
+
+    @Query("SELECT * FROM movie WHERE is_favorite = 1")
+    fun getFavorite(): List<Movie>
+
+    @Query("SELECT * FROM movie WHERE is_watched = 1")
+    fun getWatched(): List<Movie>
 }

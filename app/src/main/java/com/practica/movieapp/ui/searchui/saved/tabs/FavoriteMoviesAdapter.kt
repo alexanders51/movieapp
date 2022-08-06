@@ -1,68 +1,60 @@
 package com.practica.movieapp.ui.searchui.saved.tabs
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.practica.movieapp.R
 import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.movies.Movie
 import com.practica.movieapp.data.movies.get.MoviesRepository
+import com.practica.movieapp.databinding.RvItemMovieDeleteBinding
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FavoriteMoviesAdapter(
-    private val moviesList: ArrayList<Movie>
+    private val items: MutableList<Movie>
 ) : RecyclerView.Adapter<FavoriteMoviesAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    inner class ViewHolder(val binding: RvItemMovieDeleteBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         var favorite: Boolean = false
         var watched: Boolean = false
-
-        val itemIvMovie = view.findViewById<ImageView>(R.id.ivMovie)!!
-        val itemIvTitle = view.findViewById<TextView>(R.id.tvTitle)!!
-        val itemIvOriginalTitle = view.findViewById<TextView>(R.id.tvOriginalTitle)!!
-        val itemIvReleaseDate = view.findViewById<TextView>(R.id.tvReleaseDate)!!
-        val itemIvOverview = view.findViewById<TextView>(R.id.tvOverview)!!
-        val itemBtnDelete = view.findViewById<ImageButton>(R.id.btnDelete)!!
     }
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val moviesRep: MoviesRepository = MoviesRepository.instance
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_item_list_favorite, parent, false)
-
-        return ViewHolder(view)
+        val binding =
+            RvItemMovieDeleteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie = moviesList[position]
+        with(holder) {
+            with(items[position]) {
+                ImageHandler.downloadH632ImageWithPath(
+                    binding.ivImdPoster.context,
+                    this.posterPath,
+                    binding.ivImdPoster
+                )
 
-        ImageHandler.downloadH632ImageWithPath(
-            holder.itemIvMovie.context,
-            movie.posterPath,
-            holder.itemIvMovie
-        )
+                binding.tvImdTitle.text = this.title
+                binding.tvImdOriginalTitle.text = this.originalTitle
+                binding.tvImdReleaseDate.text = this.releaseDate
+                binding.tvImdOverview.text = this.overview
 
-        holder.itemIvTitle.text = movie.title
-        holder.itemIvOriginalTitle.text = movie.originalTitle
-        holder.itemIvOverview.text = movie.overview
-        holder.itemIvReleaseDate.text = movie.releaseDate
+                favorite = this.isFavorite
+                watched = this.isWatched
 
-        holder.favorite = moviesList[position].isFavorite
-        holder.watched = moviesList[position].isWatched
-
-        holder.itemBtnDelete.setOnClickListener {
-            updateItem(moviesList[position])
-            moviesList.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, moviesList.size)
+                binding.btnImdDelete.setOnClickListener {
+                    updateItem(items[position])
+                    items.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, items.size)
+                }
+            }
         }
     }
 
@@ -79,5 +71,5 @@ class FavoriteMoviesAdapter(
         }
     }
 
-    override fun getItemCount() = moviesList.size
+    override fun getItemCount() = items.size
 }

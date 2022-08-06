@@ -10,6 +10,7 @@
     <color name="magenta_400">#ffff00a4</color>
     <color name="magenta_500">#ffff008d</color>
     <color name="magenta_500_30a">#30ff008d</color>
+    <color name="magenta_500_card">#623D54</color>
     <color name="red_300">#ffff8a65</color>
     <color name="red_300_30a">#30ff8a65</color>
     <color name="red_400">#ffff5436</color>
@@ -17,6 +18,7 @@
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
     <color name="grey">#ff777777</color>
+    <color name="dark">#ff222222</color>
     <color name="lighter_grey">#ffafafaf</color>
     <color name="white_10a">#10ffffff</color>
 </resources>

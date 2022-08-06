@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFavoriteMoviesList"
+        android:id="@+id/rv_ff_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/movie_item_list" />
+        tools:listitem="@layout/rv_item_movie_delete" />
 </LinearLayout>

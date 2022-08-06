@@ -8,12 +8,13 @@
     tools:context=".ui.searchui.search.SearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clSearchBar"
+        android:id="@+id/cl_fs_search"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="?attr/colorOnPrimary"
         android:backgroundTint="?attr/colorOnPrimary"
         android:foregroundTint="?attr/colorPrimary"
+        android:tint="?attr/colorPrimary"
         android:padding="12dp"
         android:theme="@style/Theme.MovieApp.NoActionBar.NoActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +24,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <SearchView
-            android:id="@+id/svMovies"
+            android:id="@+id/searchview_fs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -33,12 +34,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMovieItems"
+        android:id="@+id/rv_fs_movies"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clSearchBar"
-        tools:listitem="@layout/movie_item_list" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_fs_search"
+        tools:listitem="@layout/rv_item_movie" />
 </androidx.constraintlayout.widget.ConstraintLayout>

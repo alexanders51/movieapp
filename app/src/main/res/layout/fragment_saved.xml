@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/ftTabs"
+            android:id="@+id/ft_fsa_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabBackground="?attr/colorOnPrimary"
@@ -26,7 +26,7 @@
             app:tabTextColor="?attr/colorPrimaryVariant" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/ftViewPager"
+            android:id="@+id/vp2_fsa_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

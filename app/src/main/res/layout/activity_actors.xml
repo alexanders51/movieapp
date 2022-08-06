@@ -13,38 +13,47 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         android:orientation="vertical"
-        android:padding="@dimen/dimen_default_layout_padding"
+        android:paddingTop="@dimen/dimen_default_layout_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvActorsTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/ao"
-            android:text="@string/actors_title"
-            android:textSize="@dimen/dimen_title_text_size" />
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp">
 
-        <TextView
-            android:id="@+id/tvActorsDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="@string/actors_desc"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_aa_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/ao"
+                android:text="@string/actors_title"
+                android:textSize="@dimen/dimen_title_text_size" />
+
+            <TextView
+                android:id="@+id/tv_aa_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/actors_desc"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvActorsList"
+            android:id="@+id/rv_aa_actors"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/photo_item_list" />
+            tools:listitem="@layout/rv_item_actor"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabSubmit"
+        android:id="@+id/fab_aa_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
@@ -52,9 +61,9 @@
         android:src="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

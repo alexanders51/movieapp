@@ -1,32 +1,62 @@
 package com.practica.movieapp.ui.searchui.saved.tabs
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.practica.movieapp.R
 import com.practica.movieapp.data.movies.Movie
+import com.practica.movieapp.data.movies.get.MoviesRepository
+import com.practica.movieapp.databinding.FragmentWatchedBinding
+import kotlinx.coroutines.*
 
-class WatchedFragment(
-    private var movies: ArrayList<Movie>
-) : Fragment(R.layout.fragment_watched) {
+class WatchedFragment : Fragment() {
+
+    private val movieRep: MoviesRepository = MoviesRepository.instance
+    private var movies: MutableList<Movie> = mutableListOf()
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
+
+    private lateinit var _binding: FragmentWatchedBinding
+    private val binding get() = _binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentWatchedBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(view)
+        initializeListOfMovies()
     }
 
-    private fun setupRecyclerView(view: View) {
-        val llm = LinearLayoutManager(view.context)
-        val rv = view.findViewById<RecyclerView>(R.id.rvWatchedMoviesList)
+    private fun setupRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(this.context)
+        val recyclerView = binding.rvWfMovies
 
-        llm.orientation = LinearLayoutManager.VERTICAL
-        llm.reverseLayout = false
+        with (linearLayoutManager) {
+            orientation = LinearLayoutManager.VERTICAL
+            reverseLayout = false
+        }
 
-        rv.layoutManager = llm
-        rv.adapter = WatchedMoviesAdapter(ArrayList(getWatched()))
+        with(recyclerView) {
+            layoutManager = linearLayoutManager
+            adapter = WatchedMoviesAdapter(movies)
+        }
     }
 
-    private fun getWatched() = movies.filter { it.isWatched }
+    private fun initializeListOfMovies() {
+        CoroutineScope(ioDispatcher).launch {
+            movies = movieRep.getWatched().toMutableList()
+            withContext(mainDispatcher) {
+                setupRecyclerView()
+            }
+        }
+    }
+
 }

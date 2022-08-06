@@ -9,51 +9,52 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
 import com.practica.movieapp.data.genres.Genre
+import com.practica.movieapp.databinding.RvItemGenreCheckBinding
 
-class GenresAdapter(private val genresList: List<Genre>) :
+class GenresAdapter(private val items: List<Genre>) :
     RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
-        val genreCheck = view.findViewById<CheckBox>(R.id.cbCheck)!!
-    }
+    inner class ViewHolder(val binding: RvItemGenreCheckBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.simple_item_list, parent, false)
-
-        return ViewHolder(view)
+        val binding = RvItemGenreCheckBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val genre = genresList[position]
-        holder.genreCheck.text = genre.name
-        holder.genreCheck.isChecked = genre.isSelected
+        with(holder) {
+            with(items[position]) {
+                binding.cbIgCheck.text = this.name
+                binding.cbIgCheck.isChecked = this.isSelected
 
-        setItemSelection(holder, genre, position)
+                setItemSelection(holder, this, position)
 
-        holder.genreCheck.setOnClickListener {
-            genre.isSelected = !genre.isSelected
-            setItemSelection(holder, genre, position)
+                binding.cbIgCheck.setOnClickListener {
+                    this.isSelected = !this.isSelected
+                    setItemSelection(holder, this, position)
+                }
+            }
         }
     }
 
     private fun setItemSelection(holder: ViewHolder, genre: Genre, position: Int) {
-        val bgColor = when (genre.isSelected) {
-            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_500_30a)
-            else -> when (position % 2 != 0) {
-                true -> ContextCompat.getColor(holder.itemParent.context, R.color.white_10a)
-                else -> ContextCompat.getColor(holder.itemParent.context, R.color.black)
+        with(holder) {
+            val bgColor = when(genre.isSelected) {
+                true -> ContextCompat.getColor(binding.clIgParent.context, R.color.magenta_500_30a)
+                else -> when (position % 2 != 0) {
+                    true -> ContextCompat.getColor(binding.clIgParent.context, R.color.white_10a)
+                    else -> ContextCompat.getColor(binding.clIgParent.context, R.color.black)
+                }
             }
-        }
 
-        val fgColor = when (genre.isSelected) {
-            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_300)
-            else -> ContextCompat.getColor(holder.itemParent.context, R.color.white)
-        }
+            val fgColor = when(genre.isSelected) {
+                true -> ContextCompat.getColor(binding.clIgParent.context, R.color.magenta_300)
+                else -> ContextCompat.getColor(binding.clIgParent.context, R.color.white)
+            }
 
-        holder.itemParent.setBackgroundColor(bgColor)
-        holder.genreCheck.setTextColor(fgColor)
+            binding.cbIgCheck.setBackgroundColor(bgColor)
+            binding.cbIgCheck.setTextColor(fgColor)
+        }
     }
 
-    override fun getItemCount() = genresList.size
+    override fun getItemCount() = items.size
 }

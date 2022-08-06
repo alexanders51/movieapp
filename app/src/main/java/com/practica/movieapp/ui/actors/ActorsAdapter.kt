@@ -11,57 +11,54 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
 import com.practica.movieapp.data.ImageHandler
 import com.practica.movieapp.data.actors.Actor
+import com.practica.movieapp.databinding.RvItemActorBinding
 
-class ActorsAdapter(private val actorsList: List<Actor>) :
+class ActorsAdapter(private val items: List<Actor>) :
     RecyclerView.Adapter<ActorsAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemParent = view.findViewById<ConstraintLayout>(R.id.itemParent)!!
-        val itemName = view.findViewById<TextView>(R.id.tvName)!!
-        val itemImage = view.findViewById<ImageView>(R.id.ivImage)!!
-    }
+    inner class ViewHolder(val binding: RvItemActorBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.photo_item_list, parent, false)
-
-        return ViewHolder(view)
+        val binding = RvItemActorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val actor = actorsList[position]
-        holder.itemName.text = actor.name
+        with(holder) {
+            with(items[position]) {
+                ImageHandler.downloadH632ImageWithPath(
+                    binding.ivIaImage.context,
+                    this.profilePath,
+                    binding.ivIaImage
+                )
 
-        ImageHandler.downloadH632ImageWithPath(
-            holder.itemImage.context,
-            actor.profilePath,
-            holder.itemImage
-        )
+                binding.tvIaName.text = this.name
 
-        setItemSelection(holder, actor, position)
+                setItemSelection(holder, this)
 
-        holder.itemParent.setOnClickListener {
-            actor.isSelected = !actor.isSelected
-            setItemSelection(holder, actor, position)
-        }
-    }
-
-    private fun setItemSelection(holder: ViewHolder, actor: Actor, position: Int) {
-        val bgColor = when (actor.isSelected) {
-            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_500_30a)
-            else -> when (position % 2 != 0) {
-                true -> ContextCompat.getColor(holder.itemParent.context, R.color.white_10a)
-                else -> ContextCompat.getColor(holder.itemParent.context, R.color.black)
+                binding.clIaParent.setOnClickListener {
+                    this.isSelected = !this.isSelected
+                    setItemSelection(holder, this)
+                }
             }
         }
-
-        val fgColor = when (actor.isSelected) {
-            true -> ContextCompat.getColor(holder.itemParent.context, R.color.magenta_300)
-            else -> ContextCompat.getColor(holder.itemParent.context, R.color.white)
-        }
-
-        holder.itemParent.setBackgroundColor(bgColor)
-        holder.itemName.setTextColor(fgColor)
     }
 
-    override fun getItemCount(): Int = actorsList.size
+    private fun setItemSelection(holder: ViewHolder, actor: Actor) {
+        with(holder) {
+            val bgColor = when(actor.isSelected) {
+                true -> ContextCompat.getColor(binding.cvIaCard.context, R.color.magenta_500_card)
+                else -> ContextCompat.getColor(binding.cvIaCard.context, R.color.dark)
+            }
+
+            val fgColor = when(actor.isSelected) {
+                true -> ContextCompat.getColor(binding.cvIaCard.context, R.color.magenta_200)
+                else -> ContextCompat.getColor(binding.cvIaCard.context, R.color.white)
+            }
+
+            binding.cvIaCard.setCardBackgroundColor(bgColor)
+            binding.tvIaName.setTextColor(fgColor)
+        }
+    }
+
+    override fun getItemCount(): Int = items.size
 }

@@ -9,21 +9,25 @@ class MoviesRepository private constructor() {
         val instance = MoviesRepository()
     }
 
-    private val moviesRds = MoviesRemoteDataSource(ApiClient.instance.retrofit!!)
-    private val moviesLds = MoviesLocalDataSource(Database.instance)
+    private val moviesRemoteDataSource = MoviesRemoteDataSource(ApiClient.instance.retrofit!!)
+    private val moviesLocalDataSource = MoviesLocalDataSource(Database.instance)
 
     fun getAllRemoteMovies(page: Int, actorIds: Array<Int>, genreIds: Array<Int>) =
-        moviesRds.retrieveDiscovery(page, actorIds, genreIds)
+        moviesRemoteDataSource.getMoviesFromDiscovery(page, actorIds, genreIds)
 
-    fun queryMovies(page: Int, query: String) = moviesRds.retrieveSearch(page, query)
+    fun getRemoteMoviesBySearchQuery(page: Int, query: String) =
+        moviesRemoteDataSource.getMoviesFromSearchQuery(page, query)
 
-    fun getAllLocalMovies() = moviesLds.getAll()
+    fun getRemoteMovieDetailsById(id: Int) = moviesRemoteDataSource.getMovieDetailsById(id)
 
-    fun saveLocal(movie: Movie) = moviesLds.save(movie)
-    fun saveAllLocal(movies: List<Movie>) = moviesLds.saveAll(movies)
-    fun deleteLocal(movie: Movie) = moviesLds.delete(movie)
-    fun deleteAllLocal(movies: List<Movie>) = moviesLds.deleteAll(movies)
-    fun deleteAllLocal() = moviesLds.deleteAll()
-    fun getCount() = moviesLds.size()
-    fun replaceAllLocal(movies: List<Movie>) = moviesLds.replaceAll(movies)
+    fun getAllLocalMovies() = moviesLocalDataSource.getAll()
+    fun saveLocal(movie: Movie) = moviesLocalDataSource.save(movie)
+    fun saveAllLocal(movies: List<Movie>) = moviesLocalDataSource.saveAll(movies)
+    fun deleteLocal(movie: Movie) = moviesLocalDataSource.delete(movie)
+    fun deleteAllLocal(movies: List<Movie>) = moviesLocalDataSource.deleteAll(movies)
+    fun deleteAllLocal() = moviesLocalDataSource.deleteAll()
+    fun getCount() = moviesLocalDataSource.size()
+    fun replaceAllLocal(movies: List<Movie>) = moviesLocalDataSource.replaceAll(movies)
+    fun getFavorite() = moviesLocalDataSource.getFavorite()
+    fun getWatched() = moviesLocalDataSource.getWatched()
 }

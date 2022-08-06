@@ -63,7 +63,7 @@ object DataHandler {
     fun getLocalActors() = actorsLocal
     fun getLocalMovies() = moviesLocal
 
-    fun queryMovies(query: String): List<Movie> = movieRep.queryMovies(ACTOR_PAGE_NR, query)
+    fun queryMovies(query: String): List<Movie> = movieRep.getRemoteMoviesBySearchQuery(ACTOR_PAGE_NR, query)
 
     fun userPreferencesExist() =
         (actorRep.getCount() != 0) && (genreRep.getCount() != 0)

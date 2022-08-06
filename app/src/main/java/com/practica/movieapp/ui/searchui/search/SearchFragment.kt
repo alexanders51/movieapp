@@ -11,96 +11,105 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.practica.movieapp.R
 import com.practica.movieapp.data.DataHandler
 import com.practica.movieapp.data.movies.Movie
+import com.practica.movieapp.databinding.FragmentSearchBinding
 import com.practica.movieapp.ui.searchui.details.DetailsViewModel
 import kotlinx.coroutines.*
 import java.net.URLEncoder
 
 class SearchFragment : Fragment() {
+
     private var movies: List<Movie> = emptyList()
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main
 
-    private lateinit var moviesAdapter: MoviesAdapter
-    private lateinit var navController: NavController
+    private lateinit var _binding: FragmentSearchBinding
+    private val binding get() = _binding
 
     private lateinit var viewModel: DetailsViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+    ): View {
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[DetailsViewModel::class.java]
-
         navController = findNavController()
 
-        updateMovies(view)
-        setupListeners(view)
+        setupRecyclerViewLayout()
+        updateMovies()
+        setupListeners()
     }
 
-    private fun setupRecyclerView(view: View) {
-        val llm = LinearLayoutManager(view.context)
-        val rv = view.findViewById<RecyclerView>(R.id.rvMovieItems)
-
-        moviesAdapter = MoviesAdapter(movies, {
-            navigateToSpecifiedDestination(R.id.navDetails)
-        }, viewModel)
-
-        llm.orientation = LinearLayoutManager.VERTICAL
-        llm.reverseLayout = false
-
-        rv.layoutManager = llm
-        rv.adapter = moviesAdapter
+    private fun updateMovies() {
+        CoroutineScope(ioDispatcher).launch {
+            getRemoteMovies()
+            withContext(mainDispatcher) {
+                setupRecyclerViewAdapter()
+            }
+        }
     }
 
-    private fun setupListeners(view: View) {
-        val svMovies = view.findViewById<SearchView>(R.id.svMovies)
-        svMovies.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    private fun updateMoviesWithQuery(query: String) {
+        CoroutineScope(ioDispatcher).launch {
+            getRemoteMoviesWithQuery(query)
+            withContext(mainDispatcher) {
+                setupRecyclerViewAdapter()
+            }
+        }
+    }
+
+
+    private fun setupRecyclerViewLayout() {
+        val recyclerView = binding.rvFsMovies
+
+        val linearLayoutManager = LinearLayoutManager(this.context)
+
+        with(linearLayoutManager) {
+            orientation = LinearLayoutManager.VERTICAL
+            reverseLayout = false
+        }
+
+        with(recyclerView) {
+            layoutManager = linearLayoutManager
+        }
+    }
+
+    private fun setupRecyclerViewAdapter() {
+        with(binding.rvFsMovies) {
+            adapter = MoviesAdapter(movies, viewModel) {
+                navigateToSpecifiedDestination(R.id.navDetails)
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        val searchView = binding.searchviewFs
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String?) = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                when (newText != null) {
-                    true -> {
-                        val encoded = URLEncoder.encode(newText, "utf-8")
-                        if (encoded.isNotEmpty()) updateMoviesWithQuery(
-                            view,
-                            encoded
-                        ) else updateMovies(view)
+                newText?.let {
+                    val encoded = URLEncoder.encode(it, "utf-8")
+                    with(encoded) {
+                        if (this.isNotEmpty()) updateMoviesWithQuery(this)
+                        else updateMovies()
                     }
-                    else -> updateMovies(view)
                 }
                 return true
             }
         })
-    }
-
-    private fun updateMovies(view: View) {
-        CoroutineScope(ioDispatcher).launch {
-            getRemoteMovies()
-            withContext(mainDispatcher) {
-                setupRecyclerView(view)
-            }
-        }
-    }
-
-    private fun updateMoviesWithQuery(view: View, query: String) {
-        CoroutineScope(ioDispatcher).launch {
-            getRemoteMoviesWithQuery(query)
-            withContext(mainDispatcher) {
-                setupRecyclerView(view)
-            }
-        }
     }
 
     private fun getRemoteMovies() {

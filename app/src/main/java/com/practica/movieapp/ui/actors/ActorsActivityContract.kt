@@ -11,6 +11,6 @@ class ActorsActivityContract : ActivityResultContract<Void?, ActorsReturnData?>(
 
     override fun parseResult(resultCode: Int, intent: Intent?): ActorsReturnData? = when {
         resultCode != Activity.RESULT_OK -> null
-        else -> intent?.getParcelableExtra(ActorsActivity.GENRES_RETURN_DATA)
+        else -> intent?.getParcelableExtra(ActorsActivity.ACTORS_RETURN_DATA)
     }
 }
